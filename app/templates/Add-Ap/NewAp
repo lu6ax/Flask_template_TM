@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une Action</title>
+    <!-- lien CSS... -->
+</head>
+<body>
+    <h1>Ajouter une Action</h1>
+
+    <!-- affichage des messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <!-- ajout d'une action -->
+    <form method="POST" action="{{ url_for('Add Action.NewAc') }}">
+        <label for="Nom">Nom :</label>
+        <input type="text" name="Nom" required><br>
+
+        <label for="Valeur">Valeur :</label>
+        <input type="text" name="Valeur" required><br>
+
+        <label for="Quantité">Quantité :</label>
+        <input type="text" name="Quantité" required><br>
+
+        <label for="Frais achat">Frais d'achat :</label>
+        <input type="text" name="Frais achat"><br>
+
+        <label for="Taux">Taux :</label>
+        <input type="text" name="Taux"><br>
+
+        <label for="Prix acquisition">Prix d'acquisition :</label>
+        <input type="text" name="Prix acquisition"><br>
+
+        <button type="submit">Ajouter Action</button>
+    </form>
+
+    <!-- Bouton pour afficher la fenêtre pop-up -->
+    <button onclick="afficherPopup()">Afficher la fenêtre pop-up</button>
+
+    <script>
+        function afficherPopup() {
+            var userInput = prompt("Veuillez entrer une information :");
+            // demander avec quel immeuble est le lien
+            alert("Vous avez entré : " + userInput);
+        }
+    </script>
+</body>
+</html
