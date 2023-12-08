@@ -6,7 +6,7 @@ import os
 from app.utils import login_required
 
 
-AddType_bp = Blueprint('Add_Type', __name__, url_prefix='/Add-Type')
+AddType_bp = Blueprint('Add_Type', __name__, url_prefix='/Add_Type')
 @login_required
 
 
@@ -18,16 +18,16 @@ def Choose_type():
         selected_type = request.form.get('selected_type')
         # redirection de l'utilisateur sur la bonne route
         if selected_type == 'type1':
-            return redirect(url_for('Add Action'))
+            return redirect(url_for('Add_Action'))
         elif selected_type == 'type2':
-            return redirect(url_for('Add Appartement'))
+            return redirect(url_for('Add_Appartement'))
         elif selected_type == 'type3':
-            return redirect(url_for('Add Compte'))
+            return redirect(url_for('Add_Compte'))
         elif selected_type == 'type4':
-            return redirect(url_for('Add Cryptomonnaie'))
+            return redirect(url_for('Add_Cryptomonnaie'))
         elif selected_type == 'type5':
-            return redirect(url_for('Add Immeuble'))
+            return redirect(url_for('Add_Immeuble'))
         elif selected_type == 'type6':
-            return redirect(url_for('Add Obligation'))
+            return redirect(url_for('Add_Obligation'))
 
     return render_template('choose_type.html') 

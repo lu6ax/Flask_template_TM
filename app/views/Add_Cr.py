@@ -1,15 +1,16 @@
+import uuid
 from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.db.db import get_db
 import os
 
+AddCr_bp = Blueprint('Add Cryptomonnaie', __name__, url_prefix='/Add-Cr')
 
 
-AddAc_bp = Blueprint('Add Action', __name__, url_prefix='/Add-Ac')
 from app.utils import login_required
 @login_required
 
-@AddAc_bp.route('/NewAc', methods=( 'GET' ,'POST' ))
+@AddCr_bp.route('/NewCr', methods=( 'GET' ,'POST' ))
 def AddActiontodb():
 
     if request.method == 'POST':

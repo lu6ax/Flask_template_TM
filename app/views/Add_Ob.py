@@ -1,40 +1,42 @@
+import uuid
 from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.db.db import get_db
 import os
 
+AddOb_bp = Blueprint('Add Obligation', __name__, url_prefix='/Add-Ob')
+
+
 from app.utils import login_required
-
-AddAp_bp = Blueprint('Add Appartement', __name__, url_prefix='/Add-Ap')
-
-
 @login_required
 
-@AddAc_bp.route('/NewAc', methods=( 'GET' ,'POST' ))
-def AddAppartementtodb():
+@AddOb_bp.route('/NewOb', methods=( 'GET' ,'POST' ))
+def AddActiontodb():
 
     if request.method == 'POST':
 
         # On récupère les champs de l'action dans la requête HTTP
-        pièces = request.form['pièces']
-        Loué = request.form['loué']#valeur true false
-        ValeurLocative = request.form['ValeurLocative']
-        valeur = request.form.get('valeur')
-        Frais = request.form.get('frais')
-        Immeublelié = request.form.get('Immeuble')#valeur true false
+        Nom = request.form['Nom']
+        Valeur = request.form['Valeur']
+        Quantité = request.form['Quantité']
+        Frais_achat = request.form.get('Frais achat')
+        Taux = request.form.get('Taux')
+        Prix_acquisition = request.form.get('Prix acquisition')
 
         
 
         # On vérifie si frais d'achat, taux et prix d'aquisition sont remplis
-        if Immeublelié == True : #demander si c'est mieux "is" ou "=="
-            #à compléter
-
+        if Frais_achat is None : #demander si c'est mieux "is" ou "=="
+            Frais_achat = 0
+        if Taux is None :
+            Taux = 1
+        if Prix_acquisition is None :
+            Prix_acquisition = Frais_achat + Valeur*Quantité*Taux
         
         
-        
 
 
-        if pièces and Loué and ValeurLocative and valeur and Frais and Immeublelié:
+        if Nom and Valeur and Quantité and Frais_achat and Taux and Prix_acquisition:
             try:
                 #option 1 :
                 
@@ -48,9 +50,9 @@ def AddAppartementtodb():
                 # S'il n'y a pas de données, commencer à partir de 1 par exemple
                     #IDaction = 1
                 #option3 ->
-                IDappartement = str(uuid.uuid4())
+                IDaction = str(uuid.uuid4())
 
-                db.execute("INSERT INTO Appartement (No, Pièces, Loué, ValeuLlocative, Valeur, Frais, NoImmeuble) VALUES (?, ?, ?, ?, ?, ?, ?)",(IDappartement, Nom, Valeur, Quantité, Frais_achat, Taux, Prix_acquisition))
+                db.execute("INSERT INTO Action (ID, Nom, valeur, Quantite, Fraisd'achat, Taux, prixD'aquisition) VALUES (?, ?, ?, ?, ?, ?, ?)",(IDaction, Nom, Valeur, Quantité, Frais_achat, Taux, Prix_acquisition))
                 # validation de la modification de la base de données
                 db.commit()
                 #             option 2 ?                          last_action_id = db.execute("SELECT last_insert_rowid()").fetchone()[0]
