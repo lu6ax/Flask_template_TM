@@ -2,6 +2,7 @@ from flask import (Blueprint, flash, g, redirect, render_template, request, sess
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.db.db import get_db
 import os
+from datetime import datetime
 
 # Création d'un blueprint contenant les routes ayant le préfixe /auth/...
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -17,31 +18,46 @@ def register():
         username = request.form['username']
         password = request.form['password']
         Datedenaissance = request.form['Datedenaissance']
+        Nom = request.form['Nom']
+        Prenom = request.form['Prenom']
 
+        #vérification de l'âge
+        #transformation de la date en format adéquat
+        date_naissance = Datedenaissance
+        date_naissance = datetime.strptime(date_naissance, "%Y-%m-%d")
+        #récupération de la date actuelle
+        aujo = datetime.now()
+        #calcule de l'age de l'utilisateur
+        age = aujo.year - date_naissance.year - ((aujo.month, aujo.day)<(date_naissance.month, date_naissance.day))
+        if age < 18 :
+            error = "L'âge minimum pour créer un compte est de 18ans."
+            flash(error)
+            return redirect(url_for("auth.register"))
+        else:
         # On récupère la base de donnée
-        db = get_db()
+            db = get_db()
 
         # Si le nom d'utilisateur et le mot de passe ont bien une valeur
         # on essaie d'insérer l'utilisateur dans la base de données
-        if username and password and Datedenaissance:
-            try:
-                db.execute("INSERT INTO Clients (AdresseMail, MotDePasse, DateNaissance) VALUES (?, ?, ?)",(username, generate_password_hash(password), Datedenaissance))
+            if username and password and Datedenaissance and Nom and Prenom:
+                try:
+                    db.execute("INSERT INTO Clients (AdresseMail, MotDePasse, DateNaissance, Nom, Prenom) VALUES (?, ?, ?, ?, ?)",(username, generate_password_hash(password), Datedenaissance, Nom, Prenom))
                 # db.commit() permet de valider une modification de la base de données
-                db.commit()
-            except db.IntegrityError:
+                    db.commit()
+                except db.IntegrityError:
 
                 # La fonction flash dans Flask est utilisée pour stocker un message dans la session de l'utilisateur
                 # dans le but de l'afficher ultérieurement, généralement sur la page suivante après une redirection
-                error = f"L'adresse mail {username} est déjà utilisée."
-                flash(error)
-                return redirect(url_for("auth.register"))
+                    error = f"L'adresse mail {username} est déjà utilisée."
+                    flash(error)
+                    return redirect(url_for("auth.register"))
             
-            return redirect(url_for("auth.login"))
+                return redirect(url_for("auth.login"))
          
-        else:
-            error = "Adresse mail ou mot-de-passe invalide"
-            flash(error)
-            return redirect(url_for("auth.login"))
+            else:
+                error = "Adresse mail ou mot-de-passe invalide"
+                flash(error)
+                return redirect(url_for("auth.login"))
     else:
         # Si aucune donnée de formulaire n'est envoyée, on affiche le formulaire d'inscription
         return render_template('auth/register.html')

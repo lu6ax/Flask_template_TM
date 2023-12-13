@@ -1,12 +1,15 @@
-<!doctype html>
+
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>{% block title %}{% endblock %} - Template de base Flask</title>
+    <title>{% block title %}MALLFUND - {% endblock %}Template de base Flask</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
     <nav>
-        <h1>Template de base Flask</h1>
+        <h1>MALLFUND</h1>
         <ul>
         {% if g.user %}
             <li><span>{{ g.user['username'] }}</span>
@@ -33,3 +36,4 @@
 
     <script type="text/javascript" src="{{url_for('static', filename='js/script.js')}}"></script>
 </body>
+</html>
