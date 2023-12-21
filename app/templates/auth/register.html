@@ -1,3 +1,8 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+
+
+
+
 {% extends 'base.html' %}
 
 {% block header %}
@@ -16,6 +21,6 @@
     <input type="Nom" name="Nom" id="Nom" required>
     <label for="Prenom">Prénom</label>
     <input type="Prenom" name="Prenom" id="Prenom" required>
-    <input type="submit" value="Register">
+    <input type="submit" class="btn" value="Register">
   </form>
 {% endblock %}

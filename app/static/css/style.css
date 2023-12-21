@@ -1,3 +1,117 @@
-body{
+h1 {
+    font-size: 36px; /* taille police*/
+}
+
+/* essaie d'alignage  */
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+
+.button-box {
+    display: flex;
+    align-items: center;
+}
+
+.button-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.button-box li {
+    margin-right: 10px;
+}
+
+
+/* styles pour le titre MALLFUND */
+h1#mallfund-title {
+    margin: 10px 20px; /* marge */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* ombre au texte */
+    font-family: 'Helvetica', sans-serif; /* police */
+}
+
+.welcome-box {
+    max-width: 400px; /* largeur maximale du rectangle */
+    margin: 20px auto; /* Centre le rectangle */
+    padding: 20px; /* espace intérieur au rectangle */
+    background-color: #fff; /* fond rectangle */
+    border: 1px solid #ddd; /*bordure rectangle */
+    border-radius: 10px; /* Arrondi les angles */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /*  ombre au rectangle */
+    text-align: center; /*centre le etxt*/
+}
+/* Reste du CSS...  */
+body {
     background-color: rgb(255, 255, 255);
 }
+
+
+/*bouton*/
+
+.button-box {
+    max-width: 400px; /* largeur maximale de la section  */
+    margin: 20px auto; /* Centre section  */
+    display: flex;
+    align-items: center;
+    text-align: center; /* Centre txt boutons  */
+}
+
+/* styles boutons */
+.btn {
+    display: inline-block; /* essaie pour les aligner */
+    margin: 0 10px; /* espace les boutons */
+    padding: 10px; /* marge interne aux boutons */
+    background-color: #333; /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+    border: none; /* Supprime les bords des boutons */
+    border-radius: 4px; /* Arrondi les angles */
+    cursor: pointer;
+}
+
+/* Ajoutez un style d'ombre aux boutons */
+.btn:hover {
+    background-color: #555;
+}
+
+/* Autres styles... */
+
+/* essaie d' aligner horizontalement les éléments dans header-nav et button-box */
+
+
+.button-box2 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.button-box2 ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* aligne ? */
+}
+
+.button-box2 li {
+    margin-right: 10px;
+    display: flex;
+}
+
+/* style btn2 */
+.btn2 {
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #333;
+    background-color: #fff;
+}
+
+.btn2:hover {
+    background-color: #eee;
+}
+

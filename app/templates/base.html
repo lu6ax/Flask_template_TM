@@ -8,18 +8,21 @@
 </head>
 
 <body>
-    <nav>
-        <h1>MALLFUND</h1>
-        <ul>
-        {% if g.user %}
-            <li><span>{{ g.user['username'] }}</span>
-            <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-            <li><a href="{{url_for('user.show_profile')}}">Show profile</a></li>
-        {% else %}
-            <li><a href="{{ url_for('auth.register') }}">Register</a>
-            <li><a href="{{ url_for('auth.login') }}">Log In</a>
-        {% endif %}
-        </ul>
+    <nav class="header-nav">
+        <h1 id="mallfund-title">MALLFUND</h1>
+        
+        <section class="button-box">
+            <ul>
+            {% if g.user %}
+                <li><span>{{ g.user['username'] }}</span>
+                <li><a href="{{ url_for('auth.logout') }}" class="btn2">Log Out</a></li>
+                <li><a href="{{url_for('user.show_profile')}}" class="btn2">Show profile</a></li>
+            {% else %}
+                <li><a href="{{ url_for('auth.register') }}" class="btn2">Register</a></li>
+                <li><a href="{{ url_for('auth.login') }}" class="btn2">Log In</a></li>
+            {% endif %}    
+            </ul>
+        </section>
     </nav>
 
     <section class="content">

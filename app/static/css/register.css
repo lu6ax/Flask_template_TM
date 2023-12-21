@@ -1,0 +1,65 @@
+/* style par defaut */
+body, h1, h2, p, form {
+    margin: 0;
+    padding: 0;
+}
+
+/* couleur styles corps */
+body {
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+}
+
+/* Styles header */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+/* Style content section */
+.content {
+    margin: 20px;
+}
+
+/* Style registration form */
+.registration-form {
+    max-width: 400px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style group et control */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Style submit bouton */
+.btn {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* effet btn */
+.btn:hover {
+    background-color: #555;
+}
+
+/* vraiment pas complet */ 
+
