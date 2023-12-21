@@ -9,17 +9,17 @@
 
 <body>
     <nav class="header-nav">
-        <h1 id="mallfund-title">MALLFUND</h1>
+        <h1 id="mallfund-title">FOUNDMALL</h1>
         
-        <section class="button-box">
+        <section class="button-box2">
             <ul>
             {% if g.user %}
                 <li><span>{{ g.user['username'] }}</span>
-                <li><a href="{{ url_for('auth.logout') }}" class="btn2">Log Out</a></li>
-                <li><a href="{{url_for('user.show_profile')}}" class="btn2">Show profile</a></li>
+                <li><a href="{{ url_for('auth.logout') }}" class="btn2">Déconnexion</a></li>
+                <li><a href="{{url_for('user.show_profile')}}" class="btn2">Profil</a></li>
             {% else %}
-                <li><a href="{{ url_for('auth.register') }}" class="btn2">Register</a></li>
-                <li><a href="{{ url_for('auth.login') }}" class="btn2">Log In</a></li>
+                <li><a href="{{ url_for('auth.register') }}" class="btn2">S'enregistrer</a></li>
+                <li><a href="{{ url_for('auth.login') }}" class="btn2">Se connecter</a></li>
             {% endif %}    
             </ul>
         </section>
