@@ -15,4 +15,6 @@ def defhometabel():
     if user_id is None :
         g.user = None
         return render_template('auth/login.html')
+    else:
+        return render_template('Statement/Statement.html')
     actions = db.execute('SELECT * FROM Actifs WHERE IDClient = ? AND IDAction IS NOT NULL', (user_id,)).fetchall()

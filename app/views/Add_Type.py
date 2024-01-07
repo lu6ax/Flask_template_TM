@@ -6,28 +6,30 @@ import os
 from app.utils import login_required
 
 
-AddType_bp = Blueprint('Add_Type', __name__, url_prefix='/Add_Type')
+AddType_bp = Blueprint('AddType', __name__, url_prefix='/AddType')
 @login_required
 
 
 #route pour séléctionner son type d'actif
-@AddType_bp.route('/choose_type', methods=('GET', 'POST'))
+@AddType_bp.route('/Choose_type', methods=('GET', 'POST'))
 def Choose_type():
 
     if request.method == 'POST':
         selected_type = request.form.get('selected_type')
         # redirection de l'utilisateur sur la bonne route
-        if selected_type == 'type1':
-            return redirect(url_for('Add_Action'))
-        elif selected_type == 'type2':
+        if selected_type == 'Action':
+            return redirect(url_for('AddAc.AddActiontodb'))
+        elif selected_type == 'Appartement':
             return redirect(url_for('Add_Appartement'))
-        elif selected_type == 'type3':
+        elif selected_type == 'compte':
             return redirect(url_for('Add_Compte'))
-        elif selected_type == 'type4':
+        elif selected_type == 'Cryptomonnaie':
             return redirect(url_for('Add_Cryptomonnaie'))
-        elif selected_type == 'type5':
+        elif selected_type == 'Immeuble':
             return redirect(url_for('Add_Immeuble'))
-        elif selected_type == 'type6':
+        elif selected_type == 'Obligation':
             return redirect(url_for('Add_Obligation'))
-
-    return render_template('choose_type.html') 
+        #else:
+            return render_template('Add_Type/Choose_type.html')
+    
+    return render_template('Add_Type/Choose_type.html') 

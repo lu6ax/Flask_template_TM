@@ -5,17 +5,18 @@ import os
 
 from app.utils import login_required
 
-AddAp_bp = Blueprint('Add Appartement', __name__, url_prefix='/Add-Ap')
+AddAp_bp = Blueprint('AddAp', __name__, url_prefix='/AddAp')
 
 
 @login_required
 
-@AddAc_bp.route('/NewAc', methods=( 'GET' ,'POST' ))
+@AddAp_bp.route('/NewAp', methods=( 'GET' ,'POST' ))
 def AddAppartementtodb():
 
     if request.method == 'POST':
 
         # On récupère les champs de l'action dans la requête HTTP
+        Nom = request.form['Nom']
         pièces = request.form['pièces']
         Loué = request.form['loué']#valeur true false
         ValeurLocative = request.form['ValeurLocative']
@@ -28,6 +29,9 @@ def AddAppartementtodb():
         # On vérifie si frais d'achat, taux et prix d'aquisition sont remplis
         if Immeublelié == True : #demander si c'est mieux "is" ou "=="
             #à compléter
+            afficherPopup()
+
+
 
         
         
@@ -63,7 +67,7 @@ def AddAppartementtodb():
                 # dans le but de l'afficher ultérieurement, généralement sur la page suivante après une redirection
                 error = "Veuillez vérifier les informations fournies, certaines valeurs ne sont pas adaptées."
                 flash(error)
-                return redirect(url_for("Add-Ac.NewAc"))
+                return redirect(url_for("Add-Ap.NewAp"))
             
 
             db = get_db()

@@ -8,6 +8,8 @@
 </head>
 
 <body>
+    
+
     <nav class="header-nav">
         <h1 id="mallfund-title">FOUNDMALL</h1>
         
@@ -25,6 +27,8 @@
         </section>
     </nav>
 
+    
+    
     <section class="content">
         <header>
             {% block header %}{% endblock %}
@@ -37,6 +41,23 @@
         {% block content %}{% endblock %}
     </section>
 
+    <nav class="side-menu">
+        <section class="button-boxside">
+            <ul>
+            {% if g.user %}
+                <li><a href="{{ url_for('home.home_page') }}">Accueil</a></li>
+                <li><a href="{{ url_for('AddType.Choose_type') }}">Ajouter un Actif</a></li>
+                <li><a href="{{ url_for('Statement.defhometabel') }}">Mes Actifs</a></li>
+                <li><a href="{{ url_for('user.show_profile') }}">Profil</a></li>
+            {% else %}
+                <li><a href="{{ url_for('home.landing_page') }}">Accueil</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">à propos</a></li>
+            {% endif %}
+            </ul>
+        </section>
+    </nav>
+    
     <script type="text/javascript" src="{{url_for('static', filename='js/script.js')}}"></script>
 </body>
 </html>

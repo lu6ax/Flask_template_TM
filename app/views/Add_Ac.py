@@ -1,3 +1,4 @@
+import uuid
 from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.db.db import get_db
@@ -5,7 +6,7 @@ import os
 
 
 
-AddAc_bp = Blueprint('Add_Action', __name__, url_prefix='/Add_Ac')
+AddAc_bp = Blueprint('AddAc', __name__, url_prefix='/AddAc')
 from app.utils import login_required
 @login_required
 
@@ -65,7 +66,7 @@ def AddActiontodb():
                 # dans le but de l'afficher ultérieurement, généralement sur la page suivante après une redirection
                 error = "Veuillez vérifier les informations fournies, certaines valeurs ne sont pas adaptées."
                 flash(error)
-                return redirect(url_for("Add-Ac.NewAc"))
+                return redirect(url_for("AddAc.AddActiontodb"))
             
 
             db = get_db()
@@ -79,7 +80,7 @@ def AddActiontodb():
                 g.user = None
                 error = "Veuillez vous connecter."
                 flash(error)
-                return render_template('auth/login.html')
+                return url_for('auth.login')
 
         # Si l'id de l'utilisateur dans le cookie session n'est pas nul, on récupère l'utilisateur correspondant et on stocke
         # l'utilisateur comme un attribut de l'objet 'g'
@@ -96,7 +97,7 @@ def AddActiontodb():
             except db.IntegrityError :#déveloper
                 error = "Veuillez réessayer."
                 flash(error)
-                return redirect(url_for("Add-Ac.NewAc"))
+                return redirect(url_for("AddAc.AddActiontodb"))
 
 
             return redirect(url_for("home"))
@@ -104,10 +105,10 @@ def AddActiontodb():
         else:
             error = "Veuillez indiquer toutes les informations nécéssaire."
             flash(error)
-            return redirect(url_for("Add-Ac.NewAc"))
+            return redirect(url_for("AddAc.AddActiontodb"))
     else:
         # Si aucune donnée de formulaire n'est envoyée, on affiche le formulaire d'inscription
-        return render_template('Add-Ac/NewAc.html')
+        return render_template('Add_Ac/NewAc.html')
 
 
 

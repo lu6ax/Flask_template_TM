@@ -11,17 +11,17 @@ from app.utils import login_required
 @login_required
 
 @AddCr_bp.route('/NewCr', methods=( 'GET' ,'POST' ))
-def AddActiontodb():
+def AddCryptotodb():
 
     if request.method == 'POST':
 
         # On récupère les champs de l'action dans la requête HTTP
         Nom = request.form['Nom']
-        Valeur = request.form['Valeur']
-        Quantité = request.form['Quantité']
-        Frais_achat = request.form.get('Frais achat')
-        Taux = request.form.get('Taux')
-        Prix_acquisition = request.form.get('Prix acquisition')
+        
+        Symbole = request.form['Symbole']
+        Cours = request.form.get('Cours')
+        Quantité = request.form.get('Quantité')
+        Fraisliés = request.form.get('Fraisliés')
 
         
 

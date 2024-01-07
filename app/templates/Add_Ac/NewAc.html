@@ -20,24 +20,24 @@
     {% endwith %}
 
     <!-- Formulaire d'ajout d'une action -->
-    <form method="POST" action="{{ url_for('Add_Action.NewAc') }}">
+    <form method="POST" action="{{ url_for('AddAc.AddActiontodb') }}">
         <label for="Nom">Nom :</label>
         <input type="text" name="Nom" required><br>
 
         <label for="Valeur">Valeur :</label>
-        <input type="text" name="Valeur" required><br>
+        <input type="integer" name="Valeur" required><br>
 
         <label for="Quantité">Quantité :</label>
-        <input type="text" name="Quantité" required><br>
+        <input type="integer" name="Quantité" required><br>
 
         <label for="Frais achat">Frais d'achat :</label>
-        <input type="text" name="Frais achat"><br>
+        <input type="numeric" name="Frais achat"><br>
 
         <label for="Taux">Taux :</label>
-        <input type="text" name="Taux"><br>
+        <input type="numeric" name="Taux"><br>
 
         <label for="Prix acquisition">Prix d'acquisition :</label>
-        <input type="text" name="Prix acquisition"><br>
+        <input type="numeric" name="Prix acquisition"><br>
 
         <button type="submit">Ajouter Action</button>
     </form>

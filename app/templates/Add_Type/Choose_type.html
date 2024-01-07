@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+
+<!--A compléter au dessus -->
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajout d'un nouvel actif</title>
+</head>
+<body>
+    
+        <h1>Séléctionnez un type d'actif à ajouter</h1>
+        <form method="post" action="{{ url_for('AddType.Choose_type') }}">
+            <button type="submit" name="selected_type" value="Action">Action</button>
+            <button type="submit" name="selected_type" value="Appartement">Appartement</button>
+            <button type="submit" name="selected_type" value="Compte">Compte</button>
+            <button type="submit" name="selected_type" value="Cryptomonnaie">Cryptomonnaie</button>
+            <button type="submit" name="selected_type" value="Immeuble">Immeuble</button>
+            <button type="submit" name="selected_type" value="Obligation">Obligatio </button>    
+        </form>
+    
+</body>
+</html>
+{% endblock %}

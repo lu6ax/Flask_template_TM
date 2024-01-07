@@ -6,7 +6,7 @@
     <!-- lien CSS... -->
 </head>
 <body>
-    <h1>Ajouter une Action</h1>
+    <h1>Ajouter un Appartement</h1>
 
     <!-- affichage des messages -->
     {% with messages = get_flashed_messages() %}
@@ -20,26 +20,37 @@
     {% endwith %}
 
     <!-- ajout d'une action -->
-    <form method="POST" action="{{ url_for('Add Action.NewAc') }}">
+    <form method="POST" action="{{ url_for('AddAp.AddAppartementtodb') }}">
         <label for="Nom">Nom :</label>
         <input type="text" name="Nom" required><br>
 
+        <label for="Pièces">Pièces :</label>
+        <input type="numeric" name="Pièces" required><br>
+
+        <!-- Case à cocher pour ajouter des champs supplémentaires -->
+        <label for="Loué">Loué ?</label>
+        <input type="checkbox" id="Loué" name="Loué">
+
+
+        <label for="Valeurlocative">Valeur locative :</label>
+        <input type="numeric" name="Valeurlocative"><br>
+
         <label for="Valeur">Valeur :</label>
-        <input type="text" name="Valeur" required><br>
+        <input type="numeric" name="Valeur"><br>
 
-        <label for="Quantité">Quantité :</label>
-        <input type="text" name="Quantité" required><br>
-
-        <label for="Frais achat">Frais d'achat :</label>
-        <input type="text" name="Frais achat"><br>
-
-        <label for="Taux">Taux :</label>
-        <input type="text" name="Taux"><br>
-
-        <label for="Prix acquisition">Prix d'acquisition :</label>
-        <input type="text" name="Prix acquisition"><br>
-
+        <label for="Frais">Frais généraux :</label>
+        <input type="numeric" name="Frais"><br>
+        
+        
+        <!-- Case à cocher pour ajouter des champs supplémentaires -->
+        <label for="immeubleLie">Lier à un immeuble :</label>
+        <input type="checkbox" id="immeubleLie" name="immeubleLie">
+        
+        
         <button type="submit">Ajouter Action</button>
+
+        
+
     </form>
 
     <!-- Bouton pour afficher la fenêtre pop-up -->
@@ -47,7 +58,7 @@
 
     <script>
         function afficherPopup() {
-            var userInput = prompt("Veuillez entrer une information :");
+            var userInput = prompt("Veuillez selectionner l'immeuble :");
             // demander avec quel immeuble est le lien
             alert("Vous avez entré : " + userInput);
         }

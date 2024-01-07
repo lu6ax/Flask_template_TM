@@ -15,3 +15,13 @@ def landing_page():
 @home_bp.route('/<path:text>', methods=['GET', 'POST'])
 def not_found_error(text):
     return render_template('home/404.html'), 404
+
+#if g.user is not None :
+@home_bp.route('/logged', methods=('GET', 'POST'))
+def home_page():
+    # Affichage de la page principale de l'application
+    return render_template('home/indexco.html')
+#else :
+@home_bp.route('/index', methods=('GET', 'POST'))
+def uncohomepage():
+    return render_template('home/index.html')

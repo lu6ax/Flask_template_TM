@@ -11,16 +11,16 @@ AddIm_bp = Blueprint('Add Immeuble', __name__, url_prefix='/Add-Im')
 from app.utils import login_required
 @login_required
 
-@AddAc_bp.route('/NewAc', methods=( 'GET' ,'POST' ))
-def AddActiontodb():
+@AddAc_bp.route('/NewIm', methods=( 'GET' ,'POST' ))
+def AddImmeubletodb():
 
     if request.method == 'POST':
 
         # On récupère les champs de l'action dans la requête HTTP
         Nom = request.form['Nom']
         Valeur = request.form['Valeur']
-        Quantité = request.form['Quantité']
-        Frais_achat = request.form.get('Frais achat')
+        Adresse = request.form['Adresse']
+        ValeurLocative = request.form.get('ValeurLocative')
         Taux = request.form.get('Taux')
         Prix_acquisition = request.form.get('Prix acquisition')
 
