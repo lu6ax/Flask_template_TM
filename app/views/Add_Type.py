@@ -20,7 +20,7 @@ def Choose_type():
         if selected_type == 'Action':
             return redirect(url_for('AddAc.AddActiontodb'))
         elif selected_type == 'Appartement':
-            return redirect(url_for('Add_Appartement'))
+            return redirect(url_for('AddAp.AddAppartementtodb'))
         elif selected_type == 'compte':
             return redirect(url_for('Add_Compte'))
         elif selected_type == 'Cryptomonnaie':

@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
         {% endif %}
     {% endwith %}
 
-    <!-- ajout d'une action -->
+    <!-- ajout d'un appartement -->
     <form method="POST" action="{{ url_for('AddAp.AddAppartementtodb') }}">
         <label for="Nom">Nom :</label>
         <input type="text" name="Nom" required><br>
@@ -45,23 +45,47 @@
         <!-- Case à cocher pour ajouter des champs supplémentaires -->
         <label for="immeubleLie">Lier à un immeuble :</label>
         <input type="checkbox" id="immeubleLie" name="immeubleLie">
+
+        <!-- Champs supplémentaires cachés initialement -->
+        <div id="champsSupplementaires" style="display: none;">
+            <label for="champSupplémentaire">Champ supplémentaire :</label>
+            <input type="text" id="champSupplémentaire" name="champSupplémentaire"><br>
+
+            <label for="listeDeroulante">Sélectionnez un immeuble :</label>
+            <select id="listeDeroulante" name="listeDeroulante">
+                {% for id, nom in immeubles %}
+                <option value="{{ id }}">{{ nom }}</option>
+                {% endfor %}
+            </select>
+            
+        </div>
+
         
         
-        <button type="submit">Ajouter Action</button>
+        <button type="submit">Ajouter Appartement</button>
 
         
 
     </form>
 
+
+    <script>
+        document.getElementById('immeubleLie').addEventListener('change', function() {
+            var champsSupplementaires = document.getElementById('champsSupplementaires');
+            champsSupplementaires.style.display = this.checked ? 'block' : 'none';
+        });
+    </script>
+    
+
     <!-- Bouton pour afficher la fenêtre pop-up -->
-    <button onclick="afficherPopup()">Afficher la fenêtre pop-up</button>
+    <!--<button onclick="afficherPopup()">Afficher la fenêtre pop-up</button>
 
     <script>
         function afficherPopup() {
             var userInput = prompt("Veuillez selectionner l'immeuble :");
             // demander avec quel immeuble est le lien
             alert("Vous avez entré : " + userInput);
-        }
-    </script>
+        } 
+    </script> -->
 </body>
 </html

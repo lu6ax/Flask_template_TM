@@ -3,7 +3,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from app.db.db import get_db
 import os
 
-from app.utils import login_required
+from app.utils import login_required, GetImmeuble
 
 AddAp_bp = Blueprint('AddAp', __name__, url_prefix='/AddAp')
 
@@ -11,7 +11,15 @@ AddAp_bp = Blueprint('AddAp', __name__, url_prefix='/AddAp')
 @login_required
 
 @AddAp_bp.route('/NewAp', methods=( 'GET' ,'POST' ))
+
+
+
 def AddAppartementtodb():
+    db = get_db()
+    user_id = session.get('user_id')
+
+    immeubles = GetImmeuble()
+
 
     if request.method == 'POST':
 
@@ -23,13 +31,14 @@ def AddAppartementtodb():
         valeur = request.form.get('valeur')
         Frais = request.form.get('frais')
         Immeublelié = request.form.get('Immeuble')#valeur true false
+        
 
         
 
-        # On vérifie si frais d'achat, taux et prix d'aquisition sont remplis
-        if Immeublelié == True : #demander si c'est mieux "is" ou "=="
+        # On vérifie si frais d'achat, taux et prix d'aquisition sont remplié
+        #vérification de immeuble lié
             #à compléter
-            afficherPopup()
+            
 
 
 
@@ -67,7 +76,7 @@ def AddAppartementtodb():
                 # dans le but de l'afficher ultérieurement, généralement sur la page suivante après une redirection
                 error = "Veuillez vérifier les informations fournies, certaines valeurs ne sont pas adaptées."
                 flash(error)
-                return redirect(url_for("Add-Ap.NewAp"))
+                return redirect(url_for("AddAp.AddAppartementtodb"))
             
 
             db = get_db()
@@ -98,7 +107,7 @@ def AddAppartementtodb():
             except db.IntegrityError :#déveloper
                 error = "Veuillez réessayer."
                 flash(error)
-                return redirect(url_for("Add-Ac.NewAc"))
+                return redirect(url_for("AddAp.AddAppartementtodb"))
 
 
             return redirect(url_for("home"))
@@ -106,10 +115,10 @@ def AddAppartementtodb():
         else:
             error = "Veuillez indiquer toutes les informations nécéssaire."
             flash(error)
-            return redirect(url_for("Add-Ac.NewAc"))
+            return redirect(url_for("AddAp.AddAppartementtodb"))
     else:
         # Si aucune donnée de formulaire n'est envoyée, on affiche le formulaire d'inscription
-        return render_template('Add-Ac/NewAc.html')
+        return render_template('Add_Ap/NewAp.html')
 
 
 
