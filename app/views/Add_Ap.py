@@ -18,7 +18,7 @@ def AddAppartementtodb():
     db = get_db()
     user_id = session.get('user_id')
 
-    immeubles = GetImmeuble()
+    immeubles = GetImmeuble(db, user_id)
 
 
     if request.method == 'POST':
@@ -31,7 +31,7 @@ def AddAppartementtodb():
         valeur = request.form.get('valeur')
         Frais = request.form.get('frais')
         Immeublelié = request.form.get('Immeuble')#valeur true false
-        
+
 
         
 
