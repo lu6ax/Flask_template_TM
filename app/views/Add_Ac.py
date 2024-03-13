@@ -14,7 +14,8 @@ from app.utils import login_required
 def AddActiontodb():
 
     if request.method == 'POST':
-
+        db = get_db()
+        user_id = session.get('user_id')
         # On récupère les champs de l'action dans la requête HTTP
         Nom = request.form['Nom']
         Valeur = request.form['Valeur']
@@ -53,7 +54,7 @@ def AddActiontodb():
                 IDaction = str(uuid.uuid4())
                 #db.execute -> action
 
-                db.execute("INSERT INTO Action (ID, Nom, valeur, Quantite, Fraisd'achat, Taux, prixD'aquisition) VALUES (?, ?, ?, ?, ?, ?, ?)",(IDaction, Nom, Valeur, Quantité, Frais_achat, Taux, Prix_acquisition))
+                db.execute("INSERT INTO Actions (ID, Nom, valeur, Quantite, Fraisachat, Taux, prixAquisition) VALUES (?, ?, ?, ?, ?, ?, ?)",(IDaction, Nom, Valeur, Quantité, Frais_achat, Taux, Prix_acquisition))
                 # validation de la modification de la base de données
                 db.commit()
                 #             option 2 ?                          last_action_id = db.execute("SELECT last_insert_rowid()").fetchone()[0]
@@ -88,11 +89,14 @@ def AddActiontodb():
             # On récupère la base de données et on récupère l'utilisateur correspondant à l'id stocké dans le cookie session
                 db = get_db()
                 g.user = db.execute('SELECT * FROM Clients WHERE Numero = ?', (user_id,)).fetchone()
+                IDactif = str(uuid.uuid4())
+            print(g.user['Numero'], IDaction, IDactif)
 
         #reprendre ici pour créer élément dans la table de liaison 
             try:
-                db.execute("INSERT INTO Actifs (IDClient, IDAction) VALUES (?, ?)",(g.user['Numero'], IDaction))#je peux juste mettre g.user non ?
+                db.execute("INSERT INTO Actifs (IDClient, IDAction, ID) VALUES (?, ?, ?)",(g.user['Numero'], IDaction, IDactif))#je peux juste mettre g.user non ?
                 db.commit()
+
 
             except db.IntegrityError :#déveloper
                 error = "Veuillez réessayer."
@@ -100,7 +104,7 @@ def AddActiontodb():
                 return redirect(url_for("AddAc.AddActiontodb"))
 
 
-            return redirect(url_for("home"))
+            return redirect(url_for("Statement.defhometabel"))
          
         else:
             error = "Veuillez indiquer toutes les informations nécéssaire."

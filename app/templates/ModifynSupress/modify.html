@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+<html lang="en"> 
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier un actif</title>
+    <!-- lien CSS... -->
+</head>
+
+<body>
+
+
+
+<!-- Supposons que 'actif' soit l'objet actif passé au template -->
+<form action="{{ url_for('updateActif', actifId=actif.id) }}" method="POST">
+    <label for="nom">Nom de l'actif :</label>
+    <input type="text" id="nom" name="nom" value="{{ actif.nom }}" required>
+    
+    <!-- Ajoutez d'autres champs selon votre modèle d'actif -->
+    
+    <button type="submit">Modifier</button>
+</form>
+
+
+
+</body>
+
+{%endblock%}

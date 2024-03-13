@@ -1,14 +1,64 @@
 {% extends 'base.html' %}
+ <!--<script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>-->
+
 
 
 {% block content %}
   <div class="welcome-box">
     <p>Bienvenue sur votre gestionnaire d'investissement</p>
   </div>
+  <div id="container3D"></div>
+
 
 
   
   <section class="display-box">
     
   </section>
+
+
+
+
+
+
+
+
+
+
+ <!-- <script>
+    // Création de la scène
+    var scene = new THREE.Scene();
+
+    // Ajout d'une caméra
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    // Création du rendu
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('container3D').appendChild(renderer.domElement);
+
+    // Ajout d'une géométrie (une sphère dans cet exemple)
+    var geometry = new THREE.SphereGeometry(2, 32, 32); // Rayon de 2
+    var material = new THREE.MeshBasicMaterial({color: 0xff0000}); // Couleur rouge
+    var sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
+
+    // Positionnement de la caméra
+    camera.position.z = 5;
+
+    // Fonction de rendu
+    var animate = function () {
+        requestAnimationFrame(animate);
+
+        // Rotation de la sphère pour l'animation
+        sphere.rotation.x += 0.01;
+        sphere.rotation.y += 0.01;
+
+        renderer.render(scene, camera);
+    };
+
+    // Démarrage de l'animation
+    animate();
+</script>-->
+
 {% endblock %}

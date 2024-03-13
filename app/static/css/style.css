@@ -34,7 +34,7 @@ body {
     background-color: rgb(255, 255, 255);
 }
 
-
+é
 /*bouton*/
 
 .button-box {
@@ -189,4 +189,41 @@ body {
 .content {
     margin-left: 250px; /* Ajustez la marge gauche pour laisser de la place au menu */
     padding: 20px;
+}
+
+
+  /* partie pour modif et suppression d'actif */
+
+  .actif-detail {
+    position: relative; /* Permet de positionner les boutons par rapport au conteneur */
+    padding: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px; /* Espacement entre les conteneurs */
+}
+
+.actif-buttons {
+    display: none; /* Cache les boutons par défaut */
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Positionne les boutons en haut à droite du conteneur */
+}
+
+.actif-detail:hover .actif-buttons {
+    display: block; /* Affiche les boutons au survol */
+}
+
+.button-modify, .button-delete {
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.button-modify {
+    background-color: #4CAF50; /* Couleur verte */
+    color: white;
+}
+
+.button-delete {
+    background-color: #f44336; /* Couleur rouge */
+    color: white;
 }

@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+<html lang="en"> 
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un Compte</title>
+    <!-- lien CSS... -->
+</head>
+<body>
+    <h1>Ajouter un Compte</h1>
+
+    <!-- affichage des messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <!-- ajout d'un appartement -->
+    <form method="POST" action="{{ url_for('AddCo.AddComptetodb') }}">
+        <label for="Nom">Nom :</label>
+        <input type="text" name="Nom" required><br>
+
+        <label for="Solde">Solde :</label>
+        <input type="numeric" name="Solde" required><br>
+
+        <!-- Case à cocher pour ajouter des champs supplémentaires 
+        <label for="Loué">Loué ?</label>
+        <input type="checkbox" id="Loué" name="Loué">-->
+
+
+        <label for="IBAN">IBAN :</label>
+        <input type="integer" name="IBAN"><br>
+<!--
+        <label for="Valeur">Valeur :</label>
+        <input type="numeric" name="Valeur"><br>
+
+        <label for="Frais">Frais généraux :</label>
+        <input type="numeric" name="Frais"><br>
+        
+        
+         Case à cocher pour ajouter des champs supplémentaires 
+        <label for="immeubleLie">Lier à un immeuble :</label>
+        <input type="checkbox" id="immeubleLie" name="immeubleLie">
+
+         Champs supplémentaires cachés initialement (retravailler le premier pour voir comment traiter la valeur loc.) 
+        <div id="champsSupplementaires" style="display: none;">
+            <label for="champSupplémentaire">Champ supplémentaire :</label>
+            <input type="text" id="champSupplémentaire" name="champSupplémentaire"><br>
+
+            <label for="listeDeroulante">Sélectionnez un immeuble :</label>
+            <select id="listeDeroulante" name="listeDeroulante">
+                {% for id, nom in immeubles %}
+                <option value="{{ id }}">{{ nom }}</option>
+                {% endfor %}
+            </select>
+            
+        </div>
+
+    -->
+        
+        <button type="submit">Ajouter Compte</button>
+
+        
+
+    </form>
+
+
+    <!--<script>
+        document.getElementById('immeubleLie').addEventListener('change', function() {
+            var champsSupplementaires = document.getElementById('champsSupplementaires');
+            champsSupplementaires.style.display = this.checked ? 'block' : 'none';
+        });
+    </script>-->
+    
+
+    <!-- Bouton pour afficher la fenêtre pop-up -->
+    <!--<button onclick="afficherPopup()">Afficher la fenêtre pop-up</button>
+
+    <script>
+        function afficherPopup() {
+            var userInput = prompt("Veuillez selectionner l'immeuble :");
+            // demander avec quel immeuble est le lien
+            alert("Vous avez entré : " + userInput);
+        } 
+    </script> -->
+</body>
+{% endblock %}
+</html

@@ -1,1 +1,158 @@
 {% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>État des Actifs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> <!-- Assurez-vous que le chemin est correct -->
+</head>
+{% block content %}
+<body>
+    <div class="welcome-box">
+        <h1>État de vos Actifs</h1>
+        {% for type_actif, actifs in actifs_organises.items() %}
+        <div class="display-box">
+            <h2>{{ type_actif }}</h2>
+            {% for actif in actifs %}
+            <div class="actif-detail">
+                <h3>{{ actif.Nom }}</h3>
+                {% if type_actif == 'Immeuble' %}
+                <p>Adresse: {{ actif.Adresse }}</p>
+                <p>Valeur: {{ actif.Valeur }}</p>
+                <p>Frais liés: {{ actif['Frais liés'] }}</p>
+                <p>Gains mensuel moyen: {{ actif['Gains mensuel moyen'] }}</p>
+                <p>Compte relié à l'immeuble: {{ actif["Compte relié à l'immeuble"] }}</p>
+                <p>Date des transferts: {{ actif['Date des transferts'] }}</p>
+                
+                <form action="{{ url_for('Statement.deleteActif')}}" method="post">
+                    <input type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+
+                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
+                </form>
+
+
+                {% elif type_actif == 'Action' %}
+                <p>Valeur: {{ actif.Valeur }}</p>
+                <p>Quantité: {{ actif.Quantite }}</p>
+                <p>Taux: {{ actif.Taux }}</p>
+                <p>Prix d'aquisition: {{ actif["Prix d'aquisition"] }}</p>
+                <p>Frais liés: {{ actif['Frais liés'] }}</p>
+                <form action="{{ url_for('Statement.deleteActif')}}" method="post">
+                    <input type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+
+                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
+                </form>
+
+                {% elif type_actif == 'Obligation' %}
+                <p>Montant: {{ actif.Montant }}</p>
+                <p>Taux d'intérêt: {{ actif["Taux d'intérêt"] }}</p>
+                <p>Date d'échéance: {{ actif["Date d'échéance"] }}</p>
+                <p>Compte lié à l'obligation: {{ actif["Compte lié à l'obligation"] }}</p><!-- ajouter fraisachat-->
+                <p>Frais de garde: {{ actif['Frais de garde'] }}</p>
+                <form action="{{ url_for('Statement.deleteActif')}}" method="post">
+                    <input type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+
+                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
+                </form>
+
+                {% elif type_actif == 'Appartement' %}
+                <p>Valeur: {{ actif.Valeur }}</p>
+                <p>Nombre de pièces: {{ actif['Nombre de pièces'] }}</p>
+                <p>Loué ?: {{ actif["Loué ? "] }}</p>
+                <p>Valeur locative: {{ actif['Valeur locative'] }}</p>
+                <p>Immeuble lié à l'appartement: {{ actif["Immeuble lié à l'appartement"] }}</p>
+                <p>Frais moyen: {{ actif['Frais moyen'] }}</p>
+                <form action="{{ url_for('Statement.deleteActif')}}" method="post">
+                    <input type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+
+                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
+                </form>
+
+                {% elif type_actif == 'Compte' %}
+                <p>Solde: {{ actif.Solde }}</p>
+                <p>IBAN: {{ actif.IBAN }}</p>
+                <form action="{{ url_for('Statement.deleteActif')}}" method="post">
+                    <input type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+
+                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
+                </form>
+
+                {% elif type_actif == 'Cryptomonnaie' %}
+                <p>Symbole: {{ actif.Symbole }}</p>
+                <p>Cours actuel: {{ actif['Cours actuel'] }}</p>
+                <p>Quantité: {{ actif.Quantite }}</p>
+                <p>Frais en lien: {{ actif['Frais en lien'] }}</p>
+                <form action="{{ url_for('Statement.deleteActif')}}" method="post">
+                    <input type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+
+                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
+                </form>
+
+                {% endif %}
+                <div class="actif-buttons">
+                    <a href="{{ url_for('Statement.modifyActif', actifId=actif.Id) }}">Modifier</a>
+
+                    
+                </div>
+            </div>
+            {% endfor %}
+            <section class="button-boxside">
+                <li><a href="{{ url_for('home.landing_page') }}">Détails</a></li>
+            </section>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+{%endblock%}
+</html>
+
+
+<!--def defhometabel():
+    user_id = session.get('user_id')
+    db = get_db()
+    if user_id is None:
+        return render_template('auth/login.html')
+
+    # Récupération de tous les actifs pour l'utilisateur
+    actifs = db.execute('SELECT * FROM Actifs WHERE IDClient = ?', (user_id,)).fetchall()
+
+    # Organiser les actifs par type
+    actifs_organises = organiser_actifs_par_type(actifs)
+    print(actifs_organises)
+    # Récupération des informations détaillées pour chaque actif
+    for type_actif, actifs_dans_groupe in actifs_organises.items():
+        actifs_organises[type_actif] = [recuperer_details(actif, type_actif) for actif in actifs_dans_groupe]
+    print(actifs_organises)
+    return render_template('Statement/Statement.html', actifs_organises=actifs_organises)
+
+def organiser_actifs_par_type(actifs):
+    actifs_organises = {'Immeuble': [], 'Action': [], 'Obligation': []}  # Initialisez selon les types que vous avez
+    for actif in actifs:
+        if actif['IDImmeuble']:
+            actifs_organises['Immeuble'].append(actif)
+        elif actif['IDAction']:
+            actifs_organises['Action'].append(actif)
+        elif actif['IDObligation']:
+            actifs_organises['Obligation'].append(actif)
+        # Continuez pour chaque type d'actif
+    return actifs_organises
+
+def recuperer_details(actif, type_actif):
+    db = get_db()
+    if type_actif == 'Immeuble':
+        detail = db.execute('SELECT * FROM Immeubles WHERE ID = ?', (actif['IDImmeuble'],)).fetchone()
+    elif type_actif == 'Action':
+        detail = db.execute('SELECT * FROM Actions WHERE ID = ?', (actif['IDAction'],)).fetchone()
+    elif type_actif == 'Obligation':
+        detail = db.execute('SELECT * FROM Obligations WHERE ID = ?', (actif['IDObligation'],)).fetchone()
+    # Ajoutez des conditions pour d'autres types d'actif si nécessaire
+    print(detail)
+
+    return detail-->

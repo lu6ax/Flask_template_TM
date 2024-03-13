@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+<html lang="en">
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une Cryptomonnaie</title>
+    <!-- Ajoutez ici vos liens vers les fichiers CSS et autres scripts si nécessaire -->
+</head>
+
+<body>
+    <h1>Ajouter une Cryptomonnaie</h1>
+
+    <!-- Ajoutez vos messages flash ici -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Formulaire d'ajout d'une action -->
+    <form method="POST" action="{{ url_for('AddCr.AddCryptotodb') }}">
+        <label for="Nom">Nom :</label>
+        <input type="text" name="Nom" required><br>
+
+        <label for="Symbole">Symbole :</label>
+        <input type="text" name="Symbole" required><br>
+
+        <label for="Cours à la piece">Cours à l'unité :</label>
+        <input type="numeric" name="Cours à la piece" required><br>
+
+        <label for="Quantité">Quantité :</label>
+        <input type="numeric" name="Quantité"><br>
+
+        <label for="Fraisliés">Frais liés :</label>
+        <input type="numeric" name="Fraisliés"><br>
+
+        
+
+        <button type="submit">Ajouter Cryptomonnaie</button>
+    </form>
+
+    <!-- Bouton pour afficher la fenêtre pop-up -->
+    <button onclick="afficherPopup()">Afficher la fenêtre pop-up</button>
+
+    <script>
+        function afficherPopup() {
+            var userInput = prompt("Veuillez entrer une information :");
+            // Vous pouvez maintenant faire quelque chose avec userInput (envoyer au serveur, afficher, etc.)
+            alert("Vous avez entré : " + userInput);
+        }
+    </script>
+</body>
+{% endblock %}
+</html

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+<html lang="en">
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une Obligation</title>
+    <!-- Ajoutez ici vos liens vers les fichiers CSS et autres scripts si nécessaire -->
+</head>
+<body>
+    <h1>Ajouter une Obligation</h1>
+
+    <!-- Ajoutez vos messages flash ici -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Formulaire d'ajout d'une action -->
+    <form method="POST" action="{{ url_for('AddOb.AddObligationtodb') }}">
+        <label for="Nom">Nom :</label>
+        <input type="text" name="Nom" required><br>
+
+        <label for="ValeurNominale">Valeur Nominale :</label>
+        <input type="integer" name="ValeurNominale" required><br>
+
+        <label for="Quantite">Quantité :</label>
+        <input type="integer" name="Quantite" required><br>
+
+        <label for="coursemission">Cours d'émission :</label>
+        <input type="numeric" name="coursemission" required><br>
+
+        <label for="Frais_achat">Frais d'achat :</label>
+        <input type="numeric" name="Frais_achat"><br>
+
+        <label for="Taux">Taux d'intérêt :</label>
+        <input type="numeric" name="Taux"><br>
+
+        <label for="FraisGarde">Frais de garde :</label>
+        <input type="numeric" name="FraisGarde"><br>
+
+        <label for="DateEcheance">Date d'échéance :</label>
+        <input type="date" name="DateEcheance"><br>
+        
+        <label for="CompteLie">Lier à un compte :</label>
+        <input type="checkbox" id="CompteLie" name="CompteLie">
+
+        <!-- Champs supplémentaires cachés initialement (retravailler le premier pour voir comment traiter la valeur loc.) -->
+        <div id="champsSupplementaires" style="display: none;">
+            <label for="champSupplémentaire">Champ supplémentaire :</label>
+            <input type="text" id="champSupplémentaire" name="champSupplémentaire"><br>
+
+            <label for="listeDeroulante">Sélectionnez un Compte :</label>
+            <select id="listeDeroulante" name="listeDeroulante">
+                {% if comptes %}
+                    {% for id, nom in comptes %}
+                        <option value="{{ id }}">{{ nom }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>Aucun compte disponible</option>
+                {% endif %}
+            </select>
+            
+
+        </div> 
+
+
+
+
+
+        <button type="submit">Ajouter Obligation</button>
+    </form>
+
+    <script>
+        document.getElementById('CompteLie').addEventListener('change', function() {
+            var champsSupplementaires = document.getElementById('champsSupplementaires');
+            champsSupplementaires.style.display = this.checked ? 'block' : 'none';
+        });
+    </script>
+
+    <!-- Bouton  afficher la fenêtre pop-up -->
+    <button onclick="afficherPopup()">Afficher la fenêtre pop-up</button>
+
+    <script>
+        function afficherPopup() {
+            var userInput = prompt("Veuillez entrer une information :");
+            // faire quelque chose avec userInput (envoyer au serveur, afficher, etc.)
+            alert("Vous avez entré : " + userInput);
+        }
+    </script>
+</body>
+{% endblock %}
+</html

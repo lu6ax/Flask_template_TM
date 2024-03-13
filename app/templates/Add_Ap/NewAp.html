@@ -1,8 +1,11 @@
+{% extends 'base.html' %}
+
 <html lang="en"> 
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter une Action</title>
+    <title>Ajouter un Appartement</title>
     <!-- lien CSS... -->
 </head>
 <body>
@@ -23,9 +26,12 @@
     <form method="POST" action="{{ url_for('AddAp.AddAppartementtodb') }}">
         <label for="Nom">Nom :</label>
         <input type="text" name="Nom" required><br>
+        
+        <label for="Adresse">Adresse :</label>
+        <input type="text" name="Adresse" required><br>
 
-        <label for="Pièces">Pièces :</label>
-        <input type="numeric" name="Pièces" required><br>
+        <label for="Pieces">Pièces :</label>
+        <input type="numeric" name="Pieces" required><br>
 
         <!-- Case à cocher pour ajouter des champs supplémentaires -->
         <label for="Loué">Loué ?</label>
@@ -33,10 +39,10 @@
 
 
         <label for="Valeurlocative">Valeur locative :</label>
-        <input type="numeric" name="Valeurlocative"><br>
+        <input type="integer" name="Valeurlocative"><br>
 
         <label for="Valeur">Valeur :</label>
-        <input type="numeric" name="Valeur"><br>
+        <input type="integer" name="Valeur"><br>
 
         <label for="Frais">Frais généraux :</label>
         <input type="numeric" name="Frais"><br>
@@ -46,16 +52,20 @@
         <label for="immeubleLie">Lier à un immeuble :</label>
         <input type="checkbox" id="immeubleLie" name="immeubleLie">
 
-        <!-- Champs supplémentaires cachés initialement -->
+        <!-- Champs supplémentaires cachés initialement (retravailler le premier pour voir comment traiter la valeur loc.) -->
         <div id="champsSupplementaires" style="display: none;">
-            <label for="champSupplémentaire">Champ supplémentaire :</label>
-            <input type="text" id="champSupplémentaire" name="champSupplémentaire"><br>
+            <label for="datedetransfert">Date de transfert :</label>
+            <input type="date" id="datedetransfert" name="datedetransfert"><br>
 
             <label for="listeDeroulante">Sélectionnez un immeuble :</label>
-            <select id="listeDeroulante" name="listeDeroulante">
-                {% for id, nom in immeubles %}
-                <option value="{{ id }}">{{ nom }}</option>
-                {% endfor %}
+            <select id="ImmeubleLie" name="ImmeubleLie">
+                {% if immeubles %}
+                    {% for id, nom in immeubles %}
+                        <option value="{{ id }}">{{ nom }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>Aucun immeuble disponible</option>
+                {% endif %}
             </select>
             
         </div>
@@ -88,4 +98,5 @@
         } 
     </script> -->
 </body>
+{% endblock %}
 </html

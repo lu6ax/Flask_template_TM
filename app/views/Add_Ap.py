@@ -2,7 +2,7 @@ from flask import (Blueprint, flash, g, redirect, render_template, request, sess
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.db.db import get_db
 import os
-
+import uuid
 from app.utils import login_required, GetImmeuble
 
 AddAp_bp = Blueprint('AddAp', __name__, url_prefix='/AddAp')
@@ -25,29 +25,45 @@ def AddAppartementtodb():
 
         # On récupère les champs de l'action dans la requête HTTP
         Nom = request.form['Nom']
-        pièces = request.form['pièces']
-        Loué = request.form['loué']#valeur true false
-        ValeurLocative = request.form['ValeurLocative']
-        valeur = request.form.get('valeur')
-        Frais = request.form.get('frais')
-        Immeublelié = request.form.get('Immeuble')#valeur true false
-
+        pièces = request.form['Pieces']
+        Loué = request.form.get('Loué') == 'on' #valeur true false
+        ValeurLocative = request.form.get('Valeurlocative')
+        valeur = request.form.get('Valeur')
+        Frais = request.form.get('Frais')
+        Immeublelié = request.form.get('ImmeubleLie')#valeur id
+        Adresse = request.form['Adresse']
 
         
 
         # On vérifie si frais d'achat, taux et prix d'aquisition sont remplié
         #vérification de immeuble lié
             #à compléter
-            
+        if pièces is None :
+            pièces = 0
 
+        if ValeurLocative is None :
+            ValeurLocative = 0
 
+        if Immeublelié is True :
+            IDImmeublelié = request.form.get('listeDeroulante')
+            Immeublelié = 'oui'
+        else :
+            Immeublelié = 'non'
+            IDImmeublelié = 'aucun' 
 
+        if Loué == 'on' :
+            Loué = 'oui'  
+        else : 
+            Loué = 'non'
+
+        if Frais is None :
+            Frais = 0
         
         
         
 
 
-        if pièces and Loué and ValeurLocative and valeur and Frais and Immeublelié:
+        if Nom and pièces and Loué and ValeurLocative and valeur and Frais and Immeublelié and IDImmeublelié :
             try:
                 #option 1 :
                 
@@ -62,8 +78,8 @@ def AddAppartementtodb():
                     #IDaction = 1
                 #option3 ->
                 IDappartement = str(uuid.uuid4())
-
-                db.execute("INSERT INTO Appartement (No, Pièces, Loué, ValeuLlocative, Valeur, Frais, NoImmeuble) VALUES (?, ?, ?, ?, ?, ?, ?)",(IDappartement, Nom, Valeur, Quantité, Frais_achat, Taux, Prix_acquisition))
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! changer le type de données acceptées dans la db et ajouter Nom !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                db.execute("INSERT INTO Appartements (No, Pièces, Loué, ValeuLlocative, Valeur, Frais, NoImmeuble) VALUES (?, ?, ?, ?, ?, ?, ?)",(IDappartement, pièces, Loué, ValeurLocative, valeur, Frais, IDImmeublelié))
                 # validation de la modification de la base de données
                 db.commit()
                 #             option 2 ?                          last_action_id = db.execute("SELECT last_insert_rowid()").fetchone()[0]
@@ -90,7 +106,7 @@ def AddAppartementtodb():
                 g.user = None
                 error = "Veuillez vous connecter."
                 flash(error)
-                return render_template('auth/login.html')
+                return url_for('auth.login')
 
         # Si l'id de l'utilisateur dans le cookie session n'est pas nul, on récupère l'utilisateur correspondant et on stocke
         # l'utilisateur comme un attribut de l'objet 'g'
@@ -98,10 +114,10 @@ def AddAppartementtodb():
             # On récupère la base de données et on récupère l'utilisateur correspondant à l'id stocké dans le cookie session
                 db = get_db()
                 g.user = db.execute('SELECT * FROM Clients WHERE Numero = ?', (user_id,)).fetchone()
-
+            IDActif = str(uuid.uuid4())
         #reprendre ici pour créer élément dans la table de liaison 
             try:
-                db.execute("INSERT INTO Actifs (IDClient, IDAction) VALUES (?, ?)",(g.user['Numero'], IDappartement))#je peux juste mettre g.user non ?
+                db.execute("INSERT INTO Actifs (IDClient, IDAppartement, ID) VALUES (?, ?, ?)",(g.user['Numero'], IDappartement, IDActif))#je peux juste mettre g.user non ?
                 db.commit()
 
             except db.IntegrityError :#déveloper
@@ -110,7 +126,7 @@ def AddAppartementtodb():
                 return redirect(url_for("AddAp.AddAppartementtodb"))
 
 
-            return redirect(url_for("home"))
+            return redirect(url_for("Statement.defhometabel"))
          
         else:
             error = "Veuillez indiquer toutes les informations nécéssaire."
@@ -118,7 +134,7 @@ def AddAppartementtodb():
             return redirect(url_for("AddAp.AddAppartementtodb"))
     else:
         # Si aucune donnée de formulaire n'est envoyée, on affiche le formulaire d'inscription
-        return render_template('Add_Ap/NewAp.html')
+        return render_template('Add_Ap/NewAp.html', immeubles=immeubles)
 
 
 

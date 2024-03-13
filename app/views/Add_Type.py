@@ -21,14 +21,14 @@ def Choose_type():
             return redirect(url_for('AddAc.AddActiontodb'))
         elif selected_type == 'Appartement':
             return redirect(url_for('AddAp.AddAppartementtodb'))
-        elif selected_type == 'compte':
-            return redirect(url_for('Add_Compte'))
+        elif selected_type == 'Compte':
+            return redirect(url_for('AddCo.AddComptetodb'))
         elif selected_type == 'Cryptomonnaie':
-            return redirect(url_for('Add_Cryptomonnaie'))
+            return redirect(url_for('AddCr.AddCryptotodb'))
         elif selected_type == 'Immeuble':
-            return redirect(url_for('Add_Immeuble'))
+            return redirect(url_for('AddIm.AddImmeubletodb'))
         elif selected_type == 'Obligation':
-            return redirect(url_for('Add_Obligation'))
+            return redirect(url_for('AddOb.AddObligationtodb'))
         #else:
             return render_template('Add_Type/Choose_type.html')
     

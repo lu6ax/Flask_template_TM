@@ -93,7 +93,7 @@ def login():
             session.clear()
             session['user_id'] = user['Numero']
             # On redirige l'utilisateur vers la page principale une fois qu'il s'est connecté
-            return render_template('home/indexco.html')
+            return redirect(url_for("home.home_page"))
         
         else:
             # En cas d'erreur, on ajoute l'erreur dans la session et on redirige l'utilisateur vers le formulaire de login
