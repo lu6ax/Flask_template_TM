@@ -19,6 +19,7 @@ def AddActiontodb():
         # On récupère les champs de l'action dans la requête HTTP
         Nom = request.form['Nom']
         Valeur = request.form['Valeur']
+        #cours = request.form['Cours']
         Quantité = request.form['Quantité']
         Frais_achat = request.form.get('Frais achat')
         Taux = request.form.get('Taux')

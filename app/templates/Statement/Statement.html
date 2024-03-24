@@ -9,14 +9,16 @@
 </head>
 {% block content %}
 <body>
+    
+
     <div class="welcome-box">
-        <h1>État de vos Actifs</h1>
+        <h2>État de vos Actifs</h2>
         {% for type_actif, actifs in actifs_organises.items() %}
         <div class="display-box">
-            <h2>{{ type_actif }}</h2>
+            <h3>{{ type_actif }}</h3>
             {% for actif in actifs %}
             <div class="actif-detail">
-                <h3>{{ actif.Nom }}</h3>
+                <h4>{{ actif.Nom }}</h4>
                 {% if type_actif == 'Immeuble' %}
                 <p>Adresse: {{ actif.Adresse }}</p>
                 <p>Valeur: {{ actif.Valeur }}</p>
@@ -25,25 +27,25 @@
                 <p>Compte relié à l'immeuble: {{ actif["Compte relié à l'immeuble"] }}</p>
                 <p>Date des transferts: {{ actif['Date des transferts'] }}</p>
                 
-                <form action="{{ url_for('Statement.deleteActif')}}" method="post">
-                    <input type="hidden" name="actifId" value="{{ actif.id }}">
-                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+                <form class="hidef" action="{{ url_for('Statement.deleteActif')}}" method="post">
+                    <input class="hide" type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input class="hide" type="hidden" name="typeActif" value="{{ type_actif }}">
 
-                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
+                    <button type="submit" class="actif-buttons" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
                 </form>
 
 
-                {% elif type_actif == 'Action' %}
+                {% elif type_actif == 'Actions' %}
                 <p>Valeur: {{ actif.Valeur }}</p>
                 <p>Quantité: {{ actif.Quantite }}</p>
                 <p>Taux: {{ actif.Taux }}</p>
                 <p>Prix d'aquisition: {{ actif["Prix d'aquisition"] }}</p>
                 <p>Frais liés: {{ actif['Frais liés'] }}</p>
-                <form action="{{ url_for('Statement.deleteActif')}}" method="post">
-                    <input type="hidden" name="actifId" value="{{ actif.id }}">
-                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+                <form class="hidef" action="{{ url_for('Statement.deleteActif')}}" method="post">
+                    <input class="hide" type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input class="hide" type="hidden" name="typeActif" value="{{ type_actif }}">
 
-                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
+                    <button type="submit" class="actif-buttons" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
                 </form>
 
                 {% elif type_actif == 'Obligation' %}
@@ -52,35 +54,35 @@
                 <p>Date d'échéance: {{ actif["Date d'échéance"] }}</p>
                 <p>Compte lié à l'obligation: {{ actif["Compte lié à l'obligation"] }}</p><!-- ajouter fraisachat-->
                 <p>Frais de garde: {{ actif['Frais de garde'] }}</p>
-                <form action="{{ url_for('Statement.deleteActif')}}" method="post">
-                    <input type="hidden" name="actifId" value="{{ actif.id }}">
-                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+                <form class="hidef" action="{{ url_for('Statement.deleteActif')}}" method="post">
+                    <input class="hide" type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input class="hide" type="hidden" name="typeActif" value="{{ type_actif }}">
 
-                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
+                    <button type="submit" class="actif-buttons" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
                 </form>
 
-                {% elif type_actif == 'Appartement' %}
+                {% elif type_actif == 'Appartements' %}
                 <p>Valeur: {{ actif.Valeur }}</p>
                 <p>Nombre de pièces: {{ actif['Nombre de pièces'] }}</p>
                 <p>Loué ?: {{ actif["Loué ? "] }}</p>
                 <p>Valeur locative: {{ actif['Valeur locative'] }}</p>
                 <p>Immeuble lié à l'appartement: {{ actif["Immeuble lié à l'appartement"] }}</p>
                 <p>Frais moyen: {{ actif['Frais moyen'] }}</p>
-                <form action="{{ url_for('Statement.deleteActif')}}" method="post">
-                    <input type="hidden" name="actifId" value="{{ actif.id }}">
-                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+                <form class="hidef" action="{{ url_for('Statement.deleteActif')}}" method="post">
+                    <input class="hide" type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input class="hide" type="hidden" name="typeActif" value="{{ type_actif }}">
 
-                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
+                    <button type="submit" class="actif-buttons" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
                 </form>
 
-                {% elif type_actif == 'Compte' %}
+                {% elif type_actif == 'Comptes' %}
                 <p>Solde: {{ actif.Solde }}</p>
                 <p>IBAN: {{ actif.IBAN }}</p>
-                <form action="{{ url_for('Statement.deleteActif')}}" method="post">
-                    <input type="hidden" name="actifId" value="{{ actif.id }}">
-                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+                <form class="hidef" action="{{ url_for('Statement.deleteActif')}}" method="post">
+                    <input class="hide" type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input class="hide" type="hidden" name="typeActif" value="{{ type_actif }}">
 
-                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
+                    <button type="submit" class="actif-buttons" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
                 </form>
 
                 {% elif type_actif == 'Cryptomonnaie' %}
@@ -88,24 +90,25 @@
                 <p>Cours actuel: {{ actif['Cours actuel'] }}</p>
                 <p>Quantité: {{ actif.Quantite }}</p>
                 <p>Frais en lien: {{ actif['Frais en lien'] }}</p>
-                <form action="{{ url_for('Statement.deleteActif')}}" method="post">
-                    <input type="hidden" name="actifId" value="{{ actif.id }}">
-                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+                <form class="hidef" action="{{ url_for('Statement.deleteActif')}}" method="post">
+                    <input class="hide" type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input class="hide" type="hidden" name="typeActif" value="{{ type_actif }}">
 
-                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
+                    <button type="submit" class="actif-buttons" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet actif ?');">Supprimer</button>
                 </form>
 
                 {% endif %}
-                <div class="actif-buttons">
-                    <a href="{{ url_for('Statement.modifyActif', actifId=actif.Id) }}">Modifier</a>
-
-                    
+                <div class="testbuttonint">
+                    <a href="{{ url_for('Statement.modifyActif', actifId=actif.id, typeActif=type_actif) }}">Modifier</a>
                 </div>
+                
             </div>
             {% endfor %}
-            <section class="button-boxside">
+            
+            <section class="testbutton">
                 <li><a href="{{ url_for('home.landing_page') }}">Détails</a></li>
             </section>
+            
         </div>
         {% endfor %}
     </div>

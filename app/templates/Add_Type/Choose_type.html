@@ -13,7 +13,8 @@
 </head>
 <body>
     
-        <h1>Séléctionnez un type d'actif à ajouter</h1>
+    <h2>Séléctionnez un type d'actif à ajouter</h2>
+    <div class="button-container">
         <form method="post" action="{{ url_for('AddType.Choose_type') }}">
             <button type="submit" name="selected_type" value="Action">Action</button>
             <button type="submit" name="selected_type" value="Appartement">Appartement</button>
@@ -22,7 +23,7 @@
             <button type="submit" name="selected_type" value="Immeuble">Immeuble</button>
             <button type="submit" name="selected_type" value="Obligation">Obligatio </button>    
         </form>
-    
+    </div>
 </body>
 </html>
 {% endblock %}

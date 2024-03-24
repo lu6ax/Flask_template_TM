@@ -34,10 +34,13 @@
             {% block header %}{% endblock %}
         </header>
         
-        {% for message in get_flashed_messages() %}
-            <div class="flash">{{ message }}</div>
-        {% endfor %}
-
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         {% block content %}{% endblock %}
     </section>
 
@@ -61,3 +64,16 @@
     <script type="text/javascript" src="{{url_for('static', filename='js/script.js')}}"></script>
 </body>
 </html>
+
+
+<script>
+    window.onload = function() {
+      setTimeout(function() {
+        const flashMessages = document.querySelectorAll('.flash-message');
+        flashMessages.forEach(function(msg) {
+          msg.style.display = 'none'; // Cacher le message
+        });
+      }, 5000); // 5000 ms = 5 secondes avant de cacher le message
+    };
+  </script>
+  
