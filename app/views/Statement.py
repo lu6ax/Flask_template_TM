@@ -55,12 +55,12 @@ def organiser_actifs_par_type(actifs):
     return actifs_organises
 
 def recuperer_details(actif, type_actif):
-    db = get_db()  # Utilisation de la connexion DB existante
+    db = get_db()  
     detail = None
     
     try:
         if type_actif == 'Immeuble':
-            # Gardez votre logique existante pour les immeubles si nécessaire
+            # répéter logique
             detail = db.execute('SELECT Nom, Adresse, Valeur, DatesTransfert, FraisGénéraux, Gains_mensuel FROM Immeuble WHERE ID = ?', (actif['IDImmeuble'],)).fetchone()
             if detail is not None:
                 try:
@@ -78,13 +78,12 @@ def recuperer_details(actif, type_actif):
                     iban_value = 'aucun'
                 detail = {"id": actif['IDImmeuble'],"Nom": detail["Nom"], "Adresse": detail["Adresse"], "Valeur": detail["Valeur"], "Frais liés": detail["FraisGénéraux"], "Gains mensuel moyen": detail["Gains_mensuel"], "Compte relié à l'immeuble": iban_value, "Date des transferts": detail["DatesTransfert"]}
         elif type_actif == 'Actions':
-            # Modifiez cette requête pour récupérer uniquement les colonnes nécessaires
+            # Modifier cette requête pour récupérer uniquement les colonnes nécessaires
             detail = db.execute('SELECT Nom, Valeur, Quantite, Fraisachat, Taux, PrixAquisition FROM Actions WHERE ID = ?', (actif['IDAction'],)).fetchone()
-            # Convertissez le résultat en dictionnaire avec les bons champs si le détail est trouvé
+            # Convertir le résultat en dictionnaire avec les bons champs si le détail est trouvé
             if detail is not None:
                 detail = {"id": actif['IDAction'],"Nom": detail["Nom"], "Valeur": detail["Valeur"], "Quantite": detail["Quantite"], "Taux": detail["Taux"], "Prix d'aquisition": detail["PrixAquisition"], "Frais liés": detail["Fraisachat"]}
         elif type_actif == 'Obligation':
-            # Gardez votre logique existante pour les obligations si nécessaire
             detail = db.execute("SELECT Nom, TauxInteret, DateEcheance, Montant, Fraisdegarde FROM Obligation WHERE ID = ?", (actif['IDObligation'],)).fetchone()#ajouter frais d'achat
             if detail is not None:
                 try:
@@ -101,9 +100,8 @@ def recuperer_details(actif, type_actif):
                     print(f"Erreur lors de la récupération de l'IBAN: {e}")
                     iban_value = 'aucun'
                 detail = {"id" : actif['IDObligation'],"Nom": detail["Nom"], "Montant": detail["Montant"], "Taux d'intérêt": detail["TauxInteret"], "Date d'échéance": detail["DateEcheance"], "Compte lié à l'obligation": iban_value, "Frais de garde": detail["Fraisdegarde"]}
-        # Ajoutez des conditions pour d'autres types d'actif si nécessaire
+        # Ajouter des conditions pour d'autres types d'actif 
         elif type_actif == 'Appartements':
-            # Gardez votre logique existante pour les obligations si nécessaire
             detail = db.execute('SELECT Pièces, Loué, ValeuLlocative, Valeur, Frais FROM Appartements WHERE No = ?', (actif['IDAppartement'],)).fetchone()#retravailler no immeuble pour que ça affiche le nom de l'immeuble lié
             if detail is not None:
                 try:
@@ -121,19 +119,17 @@ def recuperer_details(actif, type_actif):
                     Nom = 'aucun'
                 detail = {"id": actif['IDAppartement'],"Valeur": detail["Valeur"], "Nombre de pièces": detail["Pièces"], "Loué ? ": detail["Loué"], "Valeur locative": detail["ValeuLlocative"], "Immeuble lié à l'appartement": Nom, "Frais moyen": detail["Frais"]}
         elif type_actif == 'Comptes':
-            # Gardez votre logique existante pour les obligations si nécessaire
             detail = db.execute('SELECT Nom, Solde, IBAN FROM Comptes WHERE ID = ?', (actif['IDCompte'],)).fetchone()
             if detail is not None:
                 detail = {"id": actif['IDCompte'],"Nom": detail["Nom"], "Solde": detail["Solde"], "IBAN": detail["IBAN"]}
         elif type_actif == 'Cryptomonnaie':
-            # Gardez votre logique existante pour les obligations si nécessaire
             detail = db.execute('SELECT Nom, Symbole, Cours, Quantite, Fraisliés FROM Cryptomonnaie WHERE ID = ?', (actif['IDCryptomonnaie'],)).fetchone()
             if detail is not None:
                 detail = {"id": actif['IDCryptomonnaie'],"Nom": detail["Nom"], "Symbole": detail["Symbole"], "Cours actuel": detail["Cours"], "Quantité": detail["Quantite"], "Frais en lien": detail["Fraisliés"]}
         print(f"Détails récupérés pour {type_actif}: {detail}")
     except Exception as e:
         print(f"Erreur lors de la récupération des détails pour {type_actif}: {e}")
-        detail = {}  # Retournez un dictionnaire vide en cas d'erreur
+        detail = {}  # dictionnaire vide en cas d'erreur
 
     return detail
 
@@ -142,7 +138,7 @@ def recuperer_details(actif, type_actif):
 @Statement_bp.route('/modifyActif')
 def modifyActif():
     db = get_db()
-    actifId = request.args.get('actifId')  # Utilisez request.args pour les requêtes GET
+    actifId = request.args.get('actifId')  # request.args pour les requêtes GET
     typeActif = request.args.get('typeActif')
 
     tables = ['Comptes', 'Immeuble', 'Actions', 'Appartements', 'Obligation', 'Cryptomonnaie']  
@@ -163,7 +159,7 @@ def modifyActif():
 
 @Statement_bp.route('/updateActif', methods=['POST'])
 def updateActif():
-    # Mettez à jour l'actif dans la base de données avec les nouvelles données reçues
+#en cours de réflexion
     update_actif(actifId, request.form)
     return redirect(url_for('home'))
 

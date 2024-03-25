@@ -10,6 +10,12 @@ h2 {
 
 }
 
+h5 {
+    font-size: 32px; /* taille police*/
+    font-family: 'Helvetica', sans-serif; /* police */
+    margin-top: 70px;
+}
+
 h3 {
     font-size: 28px; /* taille police*/
     font-family: 'Helvetica', sans-serif; /* police */
@@ -23,39 +29,37 @@ h4 {
 }
 /* essaie d'alignage  */
 .header-nav {
+    position: fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
 }
 
-h2 {
+h2, h5 {
     padding: 20px;
     text-align: center;
 }
 
 /* styles pour le titre MALLFUND */
 h1#mallfund-title {
-    font-size: 40px; /* taille police*/
-    margin: 20px 20px; /* marge */
+    font-size: 40px; /* taille police */
+    margin: 20px 220px; /* marge */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* ombre au texte */
     font-family: 'Helvetica', sans-serif; /* police */
+    position: fixed; /* Fixe l'élément à l'écran */
+    top: 0; /* Positionné en haut de la fenêtre du navigateur */
+    left: 0; /* Positionné à gauche de la fenêtre du navigateur */
+    width: 100%; /* S'étend sur toute la largeur */
+    z-index: 1000; /* S'assure qu'il reste au-dessus des autres éléments */
 }
+
 /*
-.welcome-box {
-    max-width: 400px; /* largeur maximale du rectangle 
-    margin: 50px auto; /* Centre le rectangle 
-    padding: 20px; /* espace intérieur au rectangle 
-    background-color: #fff; /* fond rectangle 
-    border: 1px solid #ddd; /*bordure rectangle 
-    border-radius: 10px; /* Arrondi les angles 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /*  ombre au rectangle 
-    text-align: center; /*centre le etxt
-}
+
 /* Reste du CSS...  */
 body {
     background-color: rgb(255, 255, 255);
-    margin-left: 200px;
+    margin-left: 180px;
     font-family: 'Helvetica', sans-serif; /* police */
 }
 
@@ -70,45 +74,31 @@ body {
     justify-content:  space-between;
 }
 
-/* styles boutons 
-.btn {
-    display: inline-block; /* essaie pour les aligner 
-    margin: 0 10px; /* espace les boutons 
-    padding: 20px; /* marge interne aux boutons 
-    background-color: #333; /* Couleur de fond 
-    color: #fff; /* Couleur du texte 
-    border: none; /* Supprime les bords des boutons 
-    border-radius: 4px; /* Arrondi les angles 
-    cursor: pointer;
-
-}
-
-/* Ajoutez un style d'ombre aux boutons 
-.btn:hover {
-    background-color: #555;
-}
-
-/* Autres styles... */
 
 /* essaie d' aligner horizontalement les éléments dans header-nav et button-box */
 
-
 .button-box2 {
+    position: fixed; /* Fixe la boîte en position */
+    top: 0; /* Positionnez en haut de la page */
+    right: 0; /* Positionnez à gauche de la page */
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    
+    justify-content: flex-end; /* Modifiez ceci pour aligner les éléments au début (à gauche) */
+    padding: 10px; /* Ajoutez un peu d'espacement à l'intérieur de la boîte */
+    z-index: 1000; /* S'assure que la boîte est au-dessus des autres contenus */
+    width: 100%; /* S'étend sur toute la largeur pour maintenir l'espace */
 }
 
 .button-box2 ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex; /* aligne ? */
+    display: flex;
 }
 
 .button-box2 li {
-    margin-right: 10px;
+    margin-top: 10px ;
+    margin-right: 10px; /* Espacement entre les éléments de la liste */
     display: flex;
 }
 
@@ -119,7 +109,7 @@ body {
     border: 2px solid #333; /* Couleur de bordure plus vive */
     border-radius: 5px; /* Bordures légèrement arrondies pour un look moderne */
     color: #fff; /* Couleur de texte blanche pour contraste */
-    background-color: #333; /* Couleur de fond plus vive, par exemple un vert */
+    background-color: #333; /* Couleur de fond plus vive */
     font-family: 'Helvetica', sans-serif; /* Gardez la police Helvetica */
     font-weight: bold; /* Texte en gras pour plus de présence */
     cursor: pointer; /* Changez le curseur au survol pour indiquer la possibilité de cliquer */
@@ -127,23 +117,12 @@ body {
 }
 
 .btn2:hover {
-    background-color: #333; /* Changement de couleur au survol */
+    background-color: #555; /* Changement de couleur au survol pour un effet interactif */
     color: #fff; /* Assurez-vous que le texte reste lisible */
-    border-color: #333; /* La bordure change également au survol */
+    border-color: #555; /* La bordure change également au survol */
 }
 
-/*
-.display-box {
-    max-width: 300px; /* largeur maximale du rectangle 
-    margin: 50px auto; /* Centre le rectangle 
-    padding: 20px; /* espace intérieur au rectangle 
-    background-color: #fff; /* fond rectangle 
-    border: 1px solid #ddd; /*bordure rectangle 
-    border-radius: 10px; /* Arrondi les angles 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /*  ombre au rectangle 
-    text-align: center; /*centre le etxt
-}
-*/
+
 .side-menu {
     max-width: 200px;
     margin-top: 0;
@@ -178,41 +157,6 @@ body {
 
 
 
-/*.side-menu {
-    max-width: 200px;
-    margin-top: 0px;
-    margin-bottom: 20px;
-    padding: 10px;
-    position: fixed;
-    top: 150px;
-    left: 30px;
-    background-color: #333;
-    color: white;
-    border: 1px solid #ddd; /* Bordure du side menu 
-    border-radius: 10px; /* Arrondi les angles du side menu 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajoute une ombre légère au side menu 
-    display: flex; /* Affiche les éléments en tant que flex container 
-    flex-direction: column; /* Empile les éléments verticalement 
-    align-items: flex-start; /* Aligne les éléments à gauche 
-}
-
-.side-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.side-menu a {
-    text-decoration: none;
-    color: white;
-    padding: 15px 10px;
-
-}
-
-.side-menu a:hover {
-    background-color: #555;
-}
-*/
 .button-boxside {
     display: flex;
     flex-direction: column;
@@ -327,26 +271,22 @@ body {
 .actif-detail:hover .testbuttonint {
     display: block; /* Affiche les boutons au survol */
 }
-/*
-.button-modify, .button-delete {
-    padding: 5px 10px;
-    margin-left: 5px;
-    cursor: pointer;
-}
 
-.button-modify {
-    background-color: #4CAF50; /* Couleur verte 
-    color: white;
-}
 
-.button-delete {
-    background-color: #f44336; /* Couleur rouge 
-    color: white;
-}
-*/
-.welcome-box, .display-box {
+.welcome-box1 {
     max-width: 500px; /* Ajustez selon votre contenu */
     margin: 20px auto; /* Centre la boîte */
+    padding: 20px;
+    background-color: #fff; /* Fond blanc */
+    border: 2px solid #ddd; /* Bordure légère */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    text-align: center; /* Centre le texte */
+}
+
+.welcome-box, .display-box {
+    max-width: 500px; /* Ajustez selon votre contenu */
+    margin: 150px auto 20px; /* Centre la boîte */
     padding: 20px;
     background-color: #fff; /* Fond blanc */
     border: 2px solid #ddd; /* Bordure légère */

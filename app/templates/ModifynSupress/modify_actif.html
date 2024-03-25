@@ -11,19 +11,71 @@
     <!-- Ajoutez vos liens vers les fichiers CSS ici -->
 </head>
 <body>
-    {% if {{ typeActif }} != "Cryptomonnaie" %}
-        <h2>Modifier mon {{ typeActif }}</h2>
+    {% if  typeActif != "Cryptomonnaie" %}
+        <h5>Modifier mon {{ typeActif }}</h5>
     {% else %}
-        <h2>Modifier ma {{ typeActif }}</h2>
+        <h5>Modifier ma {{ typeActif }}</h5>
     {% endif %}
 
     <form action="{{ url_for('Statement.updateActif') }}" method="POST">
         <input type="hidden" name="actifId" value="{{ actif.id }}">
         <input type="hidden" name="typeActif" value="{{ typeActif }}">
-
+        {% if  typeActif  == "Actions" %}
         <!-- Supposons que 'actif' soit l'objet actif passé au template -->
         <label for="nom">Nom :</label>
         <input type="text" id="nom" name="nom" value="{{ actif.Nom }}" required><br>
+
+        <label for="Valeur">Valeur :</label>
+        <input type="integer" name="Valeur" value="{{ actif.Valeur }}" required><br>
+
+        <label for="Quantité">Quantité :</label>
+        <input type="integer" name="Quantité" value="{{ actif.Quantite }}"required><br>
+
+        <label for="Frais achat">Frais d'achat :</label>
+        <input type="numeric" name="Frais achat" value="{{ actif.fraisachat }}"><br>
+
+        <label for="Taux">Taux :</label>
+        <input type="numeric" name="Taux" value="{{ actif.Taux }}"><br>
+
+        <label for="Prix acquisition">Prix d'acquisition :</label>
+        <input type="numeric" name="Prix acquisition" value="{{ actif.PrixAquisition }}"><br>
+
+        {% elif typeActif  == "Appartements" %}
+        <label for="Nom">Nom :</label>
+        <input type="text" name="Nom" value="{{ actif.Nom }}" required><br>
+        
+        <label for="Adresse">Adresse :</label>
+        <input type="text" name="Adresse" value="{{ actif.Adresse }}" required><br>
+
+        <label for="Pieces">Pièces :</label>
+        <input type="numeric" name="Pieces" required><br>
+
+        <!-- Case à cocher pour ajouter des champs supplémentaires -->
+        <label for="Loué">Loué ?</label>
+        <input type="checkbox" id="Loué" name="Loué">
+
+
+        <label for="Valeurlocative">Valeur locative :</label>
+        <input type="integer" name="Valeurlocative"><br>
+
+        <label for="Valeur">Valeur :</label>
+        <input type="integer" name="Valeur"><br>
+
+        <label for="Frais">Frais généraux :</label>
+        <input type="numeric" name="Frais"><br>
+        
+        
+        <!-- modifier le type -> Case à cocher pour ajouter des champs supplémentaires -->
+        <label for="immeubleLie">Lier à un immeuble :</label>
+        <input type="checkbox" id="immeubleLie" name="immeubleLie">
+
+    
+        {% elif  typeActif == "Comptes" %}
+        {% elif  typeActif == "Cryptomonnaie" %}
+        {% elif  typeActif == "Immeuble" %}
+        {% elif  typeActif == "Obligation" %}
+
+
 
         <!-- Continuez avec les autres champs en fonction de votre modèle d'actif -->
         <!-- Par exemple, si l'actif a une propriété 'Valeur': -->
@@ -31,7 +83,7 @@
         <input type="text" id="valeur" name="valeur" value="{{ actif.Valeur }}" required><br>
 
         <!-- Assurez-vous de remplacer 'Nom', 'Valeur', etc. par les noms réels des champs de votre modèle d'actif -->
-
+        {% endif %}
         <button type="submit">Modifier</button>
     </form>
 </body>

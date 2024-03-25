@@ -5,18 +5,18 @@
 
 {% extends 'base.html' %}
 
-{% block header %}
-  <h2>{% block title %}S'enregistrer{% endblock %}</h2>
-{% endblock %}
-
 {% block content %}
+  <h5>S'enregistrer</h5>
+
+
+
   <form method="post">
     <label for="username">Adresse mail</label>
     <input name="username" id="username" required>
     <label for="password">Mot-de-passe</label>
     <input type="password" name="password" id="password" required>
-    <label for="Datedenaissance">Date de naissance</label>
-    <input type="Datedenaissance" name="Datedenaissance" id="Datedenaissance" required>
+    <label for="Datedenaissance">Date de naissance :</label>
+    <input type="date" name="Datedenaissance" id="Datedenaissance" >
     <label for="Nom">Nom</label>
     <input type="Nom" name="Nom" id="Nom" required>
     <label for="Prenom">Prénom</label>
