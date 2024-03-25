@@ -25,6 +25,8 @@ def AddAppartementtodb():
 
         # On récupère les champs de l'action dans la requête HTTP
         Nom = request.form['Nom']
+        Surface = request.form['Surface']
+
         pièces = request.form['Pieces']
         Loué = request.form.get('Loué') == 'on' #valeur true false
         ValeurLocative = request.form.get('Valeurlocative')
@@ -79,7 +81,7 @@ def AddAppartementtodb():
                 #option3 ->
                 IDappartement = str(uuid.uuid4())
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! changer le type de données acceptées dans la db et ajouter Nom !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                db.execute("INSERT INTO Appartements (No, Pièces, Loué, ValeuLlocative, Valeur, Frais, NoImmeuble) VALUES (?, ?, ?, ?, ?, ?, ?)",(IDappartement, pièces, Loué, ValeurLocative, valeur, Frais, IDImmeublelié))
+                db.execute("INSERT INTO Appartements (No, Pièces, Loué, ValeuLlocative, Valeur, Frais, NoImmeuble, Nom, Surface) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",(IDappartement, pièces, Loué, ValeurLocative, valeur, Frais, IDImmeublelié, Nom, Surface))
                 # validation de la modification de la base de données
                 db.commit()
                 #             option 2 ?                          last_action_id = db.execute("SELECT last_insert_rowid()").fetchone()[0]

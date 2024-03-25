@@ -25,7 +25,8 @@ def AddObligationtodb():
         Quantité = request.form['Quantite']
         Frais_achat = request.form.get('Frais_achat','0')
         TauxInteret = request.form.get('Taux')
-        
+        Dure = request.form.get('Dure')
+
         FraisGarde = request.form.get('FraisGarde','0')
         Coursemission = request.form.get('coursemission')
         CompteLie = request.form.get('listeDeroulante')
@@ -57,7 +58,7 @@ def AddObligationtodb():
                 #option3 ->
                 IDobligation = str(uuid.uuid4())
 #ICI aussi reregarder le type de donnés désirée
-                db.execute("INSERT INTO Obligation (ID, Nom, Montant, DateEcheance, TauxInteret, CompteAssocié,  ) VALUES (?, ?, ?, ?, ?, ?)",(IDobligation, Nom, Montant, DateEcheance, TauxInteret, CompteLie))#ajouter frais d'achat quand base de donné accessible au modif
+                db.execute("INSERT INTO Obligation (ID, Nom, Montant, DateEcheance, TauxInteret, CompteAssocié, Quantite, Dure  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",(IDobligation, Nom, Montant, DateEcheance, TauxInteret, CompteLie, Quantité, Dure))#ajouter frais d'achat quand base de donné accessible au modif
                 # validation de la modification de la base de données
                 db.commit()
                 #             option 2 ?                          last_action_id = db.execute("SELECT last_insert_rowid()").fetchone()[0]
