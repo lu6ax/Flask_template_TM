@@ -40,7 +40,7 @@ def landing_page():
 def not_found_error(text):
     return render_template('home/404.html'), 404
 
-#if g.user is not None :
+#if g.user is not None : --> pas dutout ça
 @home_bp.route('/logged', methods=('GET', 'POST'))
 def home_page():
     # Affichage de la page principale de l'application

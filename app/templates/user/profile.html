@@ -2,19 +2,19 @@
 
 {% block content %}
 <body>
-  <h5>Profil de l'utilisateur connecté </h5>
+  <h5>Mes informations</h5>
   
-  <form action="{{ url_for('user.updateuser') }}" method="post">
-    <label for="username">Adresse mail</label>
-    <input name="username" id="username" value="{{ g.user.AdresseMail }}" required>
+  <form id="modifyUserForm" action="{{ url_for('user.updateUser') }}" method="post">
+    <label for="AdresseMail">Adresse mail</label>
+    <input name="AdresseMail" id="AdresseMail" value="{{ g.user.AdresseMail }}" required>
     <label for="password">Mot-de-passe</label>
-    <input type="password" name="password" id="password"  required>
-    <label for="Datedenaissance">Date de naissance :</label>
-    <input type="date" name="Datedenaissance" id="Datedenaissance" value="{{ g.user.DateNaissance }}" >
+    <input type="password" name="password" id="password">
+    <label for="DateNaissance">Date de naissance :</label>
+    <input type="date" name="DateNaissance" id="DateNaissance" value="{{ g.user.DateNaissance }}">
     <label for="Nom">Nom</label>
-    <input type="Nom" name="Nom" id="Nom" value="{{ g.user.Nom }}"required>
+    <input type="text" name="Nom" id="Nom" value="{{ g.user.Nom }}" required>
     <label for="Prenom">Prénom</label>
-    <input type="Prenom" name="Prenom" id="Prenom" value="{{ g.user.Prenom }}" required>
+    <input type="text" name="Prenom" id="Prenom" value="{{ g.user.Prenom }}" required>
     <input type="submit" class="btn" value="Modifier">
   </form>
     

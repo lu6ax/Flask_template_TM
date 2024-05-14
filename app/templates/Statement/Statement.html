@@ -98,15 +98,18 @@
                 </form>
 
                 {% endif %}
-                <div class="testbuttonint">
-                    <a href="{{ url_for('Statement.modifyActif', actifId=actif.id, typeActif=type_actif) }}">Modifier</a>
-                </div>
+                <form action="{{ url_for('Statement.modifyActif') }}" method="GET">
+                    <input type="hidden" name="actifId" value="{{ actif.id }}">
+                    <input type="hidden" name="typeActif" value="{{ type_actif }}">
+                    <button type="submit" class="actif-buttons2">Modifier</button>
+                </form>
+                
                 
             </div>
             {% endfor %}
             
             <section class="testbutton">
-                <li><a href="{{ url_for('home.landing_page') }}">Détails</a></li>
+                <li><button href="{{ url_for('home.landing_page') }}">Détails</button></li>
             </section>
             
         </div>

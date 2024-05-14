@@ -57,9 +57,7 @@
 
         <!-- Champs supplémentaires cachés initialement (retravailler le premier pour voir comment traiter la valeur loc.) -->
         <div id="champsSupplementaires" style="display: none;">
-            <label for="champSupplémentaire">Champ supplémentaire :</label>
-            <input type="text" id="champSupplémentaire" name="champSupplémentaire"><br>
-
+            
             <label for="listeDeroulante">Sélectionnez un Compte :</label>
             <select id="listeDeroulante" name="listeDeroulante">
                 {% if comptes %}
@@ -89,15 +87,8 @@
     </script>
 
     <!-- Bouton  afficher la fenêtre pop-up -->
-    <button onclick="afficherPopup()">Afficher la fenêtre pop-up</button>
 
-    <script>
-        function afficherPopup() {
-            var userInput = prompt("Veuillez entrer une information :");
-            // faire quelque chose avec userInput (envoyer au serveur, afficher, etc.)
-            alert("Vous avez entré : " + userInput);
-        }
-    </script>
+    
 </body>
 {% endblock %}
 </html

@@ -19,7 +19,8 @@ def AddComptetodb():
         Nom = request.form['Nom']
         Solde = request.form['Solde']
         IBAn = request.form['IBAN']
-        
+        Banque = request.form['Banque']
+        Type = request.form['Type']
     #changement à effectuer au niveau de la db afin de remplacer les clés étrangères IBAN par No afin d'éviter que si deux utilisateur différent ajoute le même compte la base plante
 
        
@@ -32,7 +33,7 @@ def AddComptetodb():
             IDCompte = str(uuid.uuid4())
 
             try:
-                db.execute("INSERT INTO Comptes (Nom, Solde, IBAN, ID) VALUES (?, ?, ?, ?)",(Nom, Solde, IBAn, IDCompte))
+                db.execute("INSERT INTO Comptes (Nom, Solde, IBAN, ID, Banque, Type) VALUES (?, ?, ?, ?,? ,?)",(Nom, Solde, IBAn, IDCompte, Banque, Type))
                 # validation de la modification de la base de données
                 db.commit()
             except db.IntegrityError:

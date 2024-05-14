@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{% block title %}MALLFUND - {% endblock %}gestionnaire d'actifs financiers</title>
+    <title>{% block title %}FOUNDMALL - {% endblock %}gestionnaire d'actifs financiers</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
@@ -11,9 +11,9 @@
     
 
     <nav class="header-nav">
-        <li>
-            <a href="{{ url_for('home.home_page') }}"><h1 id="mallfund-title">FOUNDMALL</h1></a>
-        </li>
+        
+        <a href="{{ url_for('home.home_page') }}"><h1 id="mallfund-title">FOUNDMALL</h1></a>
+        
         <section class="button-box2">
             <ul>
             {% if g.user %}

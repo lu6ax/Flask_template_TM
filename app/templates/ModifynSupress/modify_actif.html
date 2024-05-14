@@ -9,6 +9,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier un actif</title>
     <!-- Ajoutez vos liens vers les fichiers CSS ici -->
+    <script>
+        function removeFieldsAndSubmit(event) {
+            // Prevent the default form submission
+            event.preventDefault();
+            
+            // Get the form element
+            var form = document.getElementById('modifyForm');
+
+            // Array of IDs to remove
+            var fieldsToRemove = ['CompteLie', 'adresseA', 'immeubleLie'];
+
+            // Remove each field
+            fieldsToRemove.forEach(function(id) {
+                var fieldToRemove = document.getElementById(id);
+                if (fieldToRemove) {
+                    fieldToRemove.remove();
+                }
+            });
+
+            // Submit the form
+            form.submit();
+        }
+    </script>
 </head>
 <body>
     {% if  typeActif != "Cryptomonnaie" %}
@@ -17,74 +40,242 @@
         <h5>Modifier ma {{ typeActif }}</h5>
     {% endif %}
 
-    <form action="{{ url_for('Statement.updateActif') }}" method="POST">
-        <input type="hidden" name="actifId" value="{{ actif.id }}">
+    <form id="modifyForm" action="{{ url_for('Statement.updateActif') }}" method="POST" onsubmit="removeFieldAndSubmit(event)">
+        {% if typeActif == "Appartements" %}
+        <input type="hidden" name="actifId" value="{{ actif['No'] }}">
+        {% else %}
+        <input type="hidden" name="actifId" value="{{ actif['ID'] }}">
+        {% endif %}
+
         <input type="hidden" name="typeActif" value="{{ typeActif }}">
-        {% if  typeActif  == "Actions" %}
+        {% if typeActif == "Actions" %}
         <!-- Supposons que 'actif' soit l'objet actif passé au template -->
         <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" value="{{ actif.Nom }}" required><br>
+        <input type="text" id="nom" name="nom" value="{{ actif['Nom'] }}" required><br>
 
         <label for="Valeur">Valeur :</label>
-        <input type="integer" name="Valeur" value="{{ actif.Valeur }}" required><br>
+        <input type="number" name="Valeur" value="{{ actif['valeur'] }}" required><br>
 
-        <label for="Quantité">Quantité :</label>
-        <input type="integer" name="Quantité" value="{{ actif.Quantite }}"required><br>
+        <label for="Quantite">Quantité :</label>
+        <input type="number" name="Quantite" value="{{ actif['Quantite'] }}" required><br>
 
         <label for="Frais achat">Frais d'achat :</label>
-        <input type="numeric" name="Frais achat" value="{{ actif.fraisachat }}"><br>
+        <input type="number" name="frais_achat" value="{{ actif['Fraisachat'] }}"><br>
 
         <label for="Taux">Taux :</label>
-        <input type="numeric" name="Taux" value="{{ actif.Taux }}"><br>
+        <input type="number" name="Taux" value="{{ actif['Taux'] }}"><br>
 
         <label for="Prix acquisition">Prix d'acquisition :</label>
-        <input type="numeric" name="Prix acquisition" value="{{ actif.PrixAquisition }}"><br>
+        <input type="number" name="prix_acquisition" value="{{ actif['prixAquisition'] }}"><br>
 
         {% elif typeActif  == "Appartements" %}
         <label for="Nom">Nom :</label>
         <input type="text" name="Nom" value="{{ actif.Nom }}" required><br>
         
         <label for="Adresse">Adresse :</label>
-        <input type="text" name="Adresse" value="{{ actif.Adresse }}" required><br>
+        <input id="adresseA" type="text" name="Adresse" value="{{ actif.Adresse }}" ><br>
 
         <label for="Pieces">Pièces :</label>
-        <input type="numeric" name="Pieces" required><br>
+        <input type="numeric" name="Pieces" value="{{ actif.Pièces }}" required><br>
 
         <!-- Case à cocher pour ajouter des champs supplémentaires -->
         <label for="Loué">Loué ?</label>
-        <input type="checkbox" id="Loué" name="Loué">
+        <input type="checkbox" id="Loué" name="Loué" value="{{ actif.Loué }}">
 
 
         <label for="Valeurlocative">Valeur locative :</label>
-        <input type="integer" name="Valeurlocative"><br>
+        <input type="integer" name="Valeurlocative" value="{{ actif.ValeuLlocative }}"><br>
 
         <label for="Valeur">Valeur :</label>
-        <input type="integer" name="Valeur"><br>
+        <input type="integer" name="Valeur" value="{{ actif.Valeur }}"><br>
 
         <label for="Frais">Frais généraux :</label>
-        <input type="numeric" name="Frais"><br>
+        <input type="numeric" name="Frais" value="{{ actif.Frais }}"><br>
         
         
         <!-- modifier le type -> Case à cocher pour ajouter des champs supplémentaires -->
         <label for="immeubleLie">Lier à un immeuble :</label>
         <input type="checkbox" id="immeubleLie" name="immeubleLie">
 
+        <div id="champsSupplementaires" style="display: none;">
+            <!--<label for="datedetransfert">Date de transfert :</label>
+            <input type="date" id="datedetransfert" name="datedetransfert"><br>-->
+
+            <!--actuellement pas optimal-->
+
+            <label for="ImmeubleLie">Sélectionnez un immeuble :</label>
+            <select id="ImmeubleLie" name="ImmeubleLie" value="{{ actif.NoImmeuble }}">
+                {% if immeubles %}
+                    {% for id, nom in immeubles %}
+                        <option value="{{ id }}">{{ nom }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>Aucun immeuble disponible</option>
+                {% endif %}
+            </select>
+            
+        </div>
+
+        <!--pour apparetement-->
+        <script>
+            document.getElementById('immeubleLie').addEventListener('change', function() {
+                var champsSupplementaires = document.getElementById('champsSupplementaires');
+                champsSupplementaires.style.display = this.checked ? 'block' : 'none';
+            });
+        </script>
+
     
         {% elif  typeActif == "Comptes" %}
+        <label for="Nom">Nom :</label>
+        <input type="text" name="Nom" value="{{ actif.Nom }}" required><br>
+
+        <label for="banque">Banque :</label>
+        <input type="text" name="banque" value="{{ actif.Banque }}"><br>
+
+        <label for="type">Type :</label>
+        <input type="text" name="type" value="{{ actif.Type }}"><br>
+
+        <label for="Solde">Solde :</label>
+        <input type="numeric" name="Solde" value="{{ actif.Solde }}" required><br>
+
+
+
+        <label for="IBAN">IBAN :</label>
+        <input type="integer" name="IBAN" value="{{ actif.IBAN }}"><br>
+
         {% elif  typeActif == "Cryptomonnaie" %}
+        <label for="Nom">Nom :</label>
+        <input type="text" name="Nom" value="{{ actif.Nom }}" required><br>
+
+        <label for="plateforme">plateforme :</label>
+        <input type="text" name="plateforme" value="{{ actif.Plateforme }}"><br>
+
+        <label for="Symbole">Symbole :</label>
+        <input type="text" name="Symbole" value="{{ actif.Symbole }}"required><br>
+
+        <label for="Cours à la piece">Cours à l'unité :</label>
+        <input type="numeric" name="Cours à la piece" value="{{ actif.Cours }}" required><br>
+
+        <label for="Quantité">Quantité :</label>
+        <input type="numeric" name="Quantité" value="{{ actif.Quantite }}"><br>
+
+        <label for="Fraisliés">Frais liés :</label>
+        <input type="numeric" name="Fraisliés" value="{{ actif.Fraisliés }}"><br>
+
         {% elif  typeActif == "Immeuble" %}
+        
+        <label for="Nom">Nom :</label>
+        <input type="text" name="Nom" value="{{ actif.Nom }}"required><br>
+
+        <label for="Adresse">Adresse :</label>
+        <input type="text" name="Adresse" value="{{ actif.Adresse }}"required><br>
+
+        <!-- Case à cocher pour ajouter des champs supplémentaires -->
+        
+
+
+        <label for="ValeurLocative">Valeur locative :</label>
+        <input type="numeric" name="ValeurLocative" value="{{ actif.ValeurLocative }}"><br>
+
+        <label for="Valeur">Valeur :</label>
+        <input type="numeric" name="Valeur" value="{{ actif.Valeur }}"><br>
+
+        <label for="FraisGénéraux">Frais généraux :</label>
+        <input type="numeric" name="FraisGénéraux" value="{{ actif.FraisGénéraux }}"><br>
+        
+        
+        <!-- Case à cocher pour ajouter des champs supplémentaires -->
+        <label for="CompteLie">Lié à un compte ?</label>
+        <input type="checkbox" id="CompteLie" name="CompteLie">
+
+        
+
+        <!-- Champs supplémentaires cachés initialement -->
+        <div id="champsSupplementaires" style="display: none;">
+            <label for="DatesTransfert">Date de transfert sur le compte :</label>
+            <input type="date" id="DatesTransfert" name="DatesTransfert" value="{{ actif.DatesTransfert }}"><br>
+
+            <label for="CompteLié">Sélectionnez un Compte :</label>
+            <select id="CompteLié" name="CompteLié" value="{{ actif.CompteLié }}">
+                {% if comptes %}
+                    {% for id, nom in comptes %}
+                        <option value="{{ id }}">{{ nom }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>Aucun compte disponible</option>
+                {% endif %}
+            </select>
+            
+        </div>
+
+        <script>
+            document.getElementById('CompteLie').addEventListener('change', function() {
+                var champsSupplementaires = document.getElementById('champsSupplementaires');
+                champsSupplementaires.style.display = this.checked ? 'block' : 'none';
+            });
+        </script>
+
         {% elif  typeActif == "Obligation" %}
+        {% set frais_achat_value = actif["Fraisd'achat"] %}
+        <label for="Nom">Nom :</label>
+        <input type="text" name="Nom" value="{{ actif.Nom }}" required><br>
 
+        <label for="ValeurNominale">Valeur Nominale :</label>
+        <input type="integer" name="ValeurNominale" value="{{ actif.Montant }}" required><br>
 
+        <label for="Quantite">Quantité :</label>
+        <input type="integer" name="Quantite" value="{{ actif.Quantite }}" required><br>
 
-        <!-- Continuez avec les autres champs en fonction de votre modèle d'actif -->
-        <!-- Par exemple, si l'actif a une propriété 'Valeur': -->
-        <label for="valeur">Valeur :</label>
-        <input type="text" id="valeur" name="valeur" value="{{ actif.Valeur }}" required><br>
+        <label for="coursemission">Cours d'émission :</label>
+        <input type="numeric" name="coursemission" value="{{ actif.Coursemission }}" required><br>
 
-        <!-- Assurez-vous de remplacer 'Nom', 'Valeur', etc. par les noms réels des champs de votre modèle d'actif -->
+        <label for="Frais_achat">Frais d'achat :</label>
+        <input type="numeric" name="Frais_achat" value="{{ frais_achat_value }}"><br>
+
+        <label for="Taux">Taux d'intérêt :</label>
+        <input type="numeric" name="Taux" value="{{ actif.TauxInteret }}"><br>
+
+        
+        <label for="Dure">Duré de l'obligation (en nombre d'années) :</label>
+        <input type="integer" name="Dure" value="{{ actif.Dure }}"><br>
+
+        <label for="FraisGarde">Frais de garde :</label>
+        <input type="numeric" name="FraisGarde" value="{{ actif.Fraisdegarde }}"><br>
+
+        <label for="DateEcheance">Date d'échéance :</label>
+        <input type="date" name="DateEcheance" value="{{ actif.DateEcheance }}"><br>
+        
+        <label for="CompteLie">Lier à un compte :</label>
+        <input type="checkbox" id="CompteLie" name="CompteLie">
+
+        <div id="champsSupplementaires" style="display: none;">
+            
+            <label for="CompteAssocié">Sélectionnez un Compte :</label>
+            <select id="CompteAssocié" name="CompteAssocié" value="{{ actif.CompteAssocié }}">
+                {% if comptes %}
+                    {% for id, nom in comptes %}
+                        <option value="{{ id }}">{{ nom }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>Aucun compte disponible</option>
+                {% endif %}
+            </select>
+            
+
+        </div> 
+
+        <script>
+            document.getElementById('CompteLie').addEventListener('change', function() {
+                var champsSupplementaires = document.getElementById('ChampsSupplémentaires');
+                champsSupplementaires.style.display = this.checked ? 'block' : 'none';
+            });
+        </script>
+
         {% endif %}
         <button type="submit">Modifier</button>
     </form>
+
+    
+
 </body>
 {% endblock %}

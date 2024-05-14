@@ -28,7 +28,7 @@
         <label for="Nom">Nom :</label>
         <input type="text" name="Nom" required><br>
 
-        <label for="plateforme">IBAN :</label>
+        <label for="plateforme">Plateforme :</label>
         <input type="text" name="plateforme"><br>
 
         <label for="Symbole">Symbole :</label>
@@ -49,15 +49,7 @@
     </form>
 
     <!-- Bouton pour afficher la fenêtre pop-up -->
-    <button onclick="afficherPopup()">Afficher la fenêtre pop-up</button>
-
-    <script>
-        function afficherPopup() {
-            var userInput = prompt("Veuillez entrer une information :");
-            // Vous pouvez maintenant faire quelque chose avec userInput (envoyer au serveur, afficher, etc.)
-            alert("Vous avez entré : " + userInput);
-        }
-    </script>
+    
 </body>
 {% endblock %}
 </html

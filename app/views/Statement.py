@@ -135,6 +135,7 @@ def recuperer_details(actif, type_actif):
 
 
 # Route pour afficher la page de modification
+
 @Statement_bp.route('/modifyActif')
 def modifyActif():
     db = get_db()
@@ -157,11 +158,40 @@ def modifyActif():
 
     return render_template('ModifynSupress/modify_actif.html', actif=actifDetails, typeActif=typeActif)
 
+def update_actif(actifId, data, table_name):
+    db = get_db()
+    columns = data.keys()
+    values = [data[column] for column in columns]
+
+    set_clause = ', '.join([f"{column} = ?" for column in columns])
+    query = f"UPDATE {table_name} SET {set_clause} WHERE id = ?"
+
+    db.execute(query, values + [actifId])
+    db.commit()
+
 @Statement_bp.route('/updateActif', methods=['POST'])
 def updateActif():
-#en cours de réflexion
-    update_actif(actifId, request.form)
-    return redirect(url_for('home'))
+    actifId = request.form.get('actifId')
+    typeActif = request.form.get('typeActif')
+
+    if not actifId or not typeActif:
+        flash("L'ID de l'actif ou le type d'actif est manquant.", 'error')
+        return redirect(url_for('Statement.defhometabel'))
+
+    tables = ['Comptes', 'Immeuble', 'Actions', 'Appartements', 'Obligation', 'Cryptomonnaie']
+    if typeActif not in tables:
+        flash("Type d'actif invalide.", 'error')
+        return redirect(url_for('Statement.defhometabel'))
+
+    data = {key: request.form.get(key) for key in request.form if key not in ['actifId', 'typeActif']}
+
+    try:
+        update_actif(actifId, data, typeActif)
+        flash('Actif mis à jour avec succès.', 'success')
+    except Exception as e:
+        flash(f'Erreur lors de la mise à jour de l\'actif : {e}', 'error')
+
+    return redirect(url_for('Statement.defhometabel'))
 
 # Route pour supprimer un actif
 @Statement_bp.route('/deleteActif', methods=( 'GET' ,'POST' ))
@@ -177,11 +207,28 @@ def deleteActif():
         flash('Type d\'actif invalide.', 'error')#inéréssant l'utilisation du / qui évite bcp de perte de temps
         
         return redirect(url_for('Statement.defhometabel'))  
-
-    supp = f'DELETE FROM {typeActif} WHERE id = ?'
-    db.execute(supp, (actifId,))
-    flash('Actif supprimé avec succès.', 'success')
-    return redirect(url_for('Statement.defhometabel'))  
-
     
+    colum = f'ID{typeActif}'
+    print(colum)
+    supp = f'DELETE FROM {typeActif} WHERE id = ?'
+    
+    try:
+        db.execute(supp, (actifId,))
+        if typeActif == 'Comptes' :
+            typeActif = 'Compte'
+        elif typeActif == 'Actions' :
+            typeActif = 'Action'
+        elif typeActif == 'Appartements' :
+            typeActif = 'Appartement'
+        
+        colum = f'ID{typeActif}'
+        suppA = f'DELETE FROM Actifs WHERE {colum} = ?'
+
+        db.execute(suppA, (actifId,))
+        db.commit()
+        flash('Actif supprimé avec succès.', 'success')
+    except db.IntegrityError as e:
+        flash(f'Erreur lors de la suppression : {e}', 'error')
+    
+    return redirect(url_for('Statement.defhometabel'))
     

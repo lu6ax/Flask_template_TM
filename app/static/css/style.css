@@ -37,8 +37,13 @@ h4 {
     text-decoration: none;
 }
 
-h2, h5 {
+h2 {
     padding: 20px;
+    text-align: center;
+}
+
+h5 {
+    padding: 60px;
     text-align: center;
 }
 
@@ -246,6 +251,32 @@ body {
     border-color: #333; /* Bordure au survol */
 }
 
+.actif-buttons2 {
+    width: 20%;
+    display: none; /* Cache les boutons par défaut */
+    position: absolute;
+    top: 10px;
+    left: 10px; /* Positionne les boutons en haut à droite du conteneur */
+}
+
+.actif-buttons2 button {
+    text-decoration: none;
+    border: 2px solid #4CAF50; /* Bordure solide et colorée */
+    border-radius: 5px; /* Arrondir les angles */
+    color: #fff; /* Couleur du texte */
+    background-color: #4CAF50; /* Couleur de fond */
+    font-family: 'Helvetica', sans-serif; /* Police de caractère */
+    font-weight: bold; /* Gras */
+    cursor: pointer; /* Curseur pointeur */
+    transition: background-color 0.3s, color 0.3s; /* Transition douce */
+    margin: 0 5px; /* Espacement entre les boutons */
+}
+
+.actif-buttons2 button:hover {
+    background-color: #333; /* Couleur au survol */
+    border-color: #333; /* Bordure au survol */
+}
+
 
 .display-box:hover .testbutton {
     display: block; /* Affiche les boutons au survol */
@@ -289,7 +320,9 @@ body {
 .actif-detail:hover .actif-buttons {
     display: block; /* Affiche les boutons au survol */
 }
-
+.actif-detail:hover .actif-buttons2 {
+    display: block; /* Affiche les boutons au survol */
+}
 .actif-detail:hover .testbuttonint {
     display: block; /* Affiche les boutons au survol */
 }
@@ -347,6 +380,7 @@ form {/* remettre background si nécessaire*/
     border-radius: 10px;
     
 }
+
 .hidef {
     max-width: 100%;
     margin: auto;
